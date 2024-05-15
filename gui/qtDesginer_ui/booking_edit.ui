@@ -312,6 +312,12 @@ QLabel {
          <height>32</height>
         </size>
        </property>
+       <property name="font">
+        <font>
+         <family>Noto Sans</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
       </widget>
      </item>
      <item row="4" column="1">
@@ -321,6 +327,12 @@ QLabel {
          <width>0</width>
          <height>32</height>
         </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Noto Sans</family>
+         <pointsize>12</pointsize>
+        </font>
        </property>
       </widget>
      </item>
