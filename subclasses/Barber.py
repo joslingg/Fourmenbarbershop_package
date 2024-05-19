@@ -74,12 +74,15 @@ class BarberWidget():
             self.barber_ui.ma_tho_edit.setText(ma_tho)
             ten_tho = self.barber_ui.ten_tho_edit.text()
             sdt_tho = self.barber_ui.sdt_tho_edit.text()
-            so_nam = self.barber_ui.so_nam_kn_edit.text()
+            so_nam = self.barber_ui.so_nam_kn_edit.text()  
             
             query = "INSERT INTO Tho (ma_tho,ten_tho,sdt_tho,so_nam_kinh_nghiem) VALUES (%s,%s,%s,%s)"
             params = (ma_tho,ten_tho,sdt_tho,so_nam)
             self._mysql_connector.execute_query(query=query,params=params)
             self.show_data_tho()
+            self.barber_ui.ten_tho_edit.clear()
+            self.barber_ui.sdt_tho_edit.clear()
+            self.barber_ui.so_nam_kn_edit.clear()
             self.barber_form.close()
             print("Insert successfully")
         except mysql.connector.Error as err:

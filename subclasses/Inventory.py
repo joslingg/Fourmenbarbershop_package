@@ -75,6 +75,8 @@ class InventoryWidget:
             params = (ma_vt,ten_vt,sl_vt)
             self._mysql_connector.execute_query(query=query,params=params)
             self.show_data_vattu()
+            self.inventory_ui.ten_vt_edit.clear()
+            self.inventory_ui.sl_vt_edit.clear()
             print("Insert successfully")
             self.inventory_form.close()
         except mysql.connector.Error as err:

@@ -43,7 +43,6 @@ class CustomerWidget:
     def close_customer_edit_form(self):
         self.customer_edit_form.close()
     
-    
         
     #Show danh sách khách hàng
     def show_data_kh(self):
@@ -82,6 +81,9 @@ class CustomerWidget:
             params = (ma_kh,sdt_kh,ten_kh,so_lan,loai_kh)
             self._mysql_connector.execute_query(query,params=params)
             self.show_data_kh()
+            self.customer_ui.sdt_kh_them_edit.clear()
+            self.customer_ui.ten_kh_them_edit.clear()
+            self.customer_ui.loai_kh_them_cbx.clear()
             print("Insert successfully")
             self.customer_form.close()
         except mysql.connector.Error as err:

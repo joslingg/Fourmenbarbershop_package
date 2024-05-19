@@ -1263,6 +1263,14 @@ QLabel{
           <height>341</height>
          </rect>
         </property>
+        <property name="font">
+         <font>
+          <family>Noto Sans</family>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="locale">
          <locale language="Vietnamese" country="Vietnam"/>
         </property>

@@ -64,7 +64,7 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         #Kết nói button gọi form lịch hẹn
         self.main_ui.them_lich_btn.clicked.connect(self.booking_widget.open_booking_form)
         self.main_ui.sua_lich_btn.clicked.connect(self.booking_widget.open_booking_edit_form)
-        #self.main_ui.xoa_lich_btn.clicked.connect(self.booking_widget.delete_lich)
+        self.main_ui.xoa_lich_btn.clicked.connect(self.booking_widget.delete_dl)
     #Hàm nút gọi mở - đóng
     def show_connection(self):
         #Mở các widget trên cửa sổ chính
