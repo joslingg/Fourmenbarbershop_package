@@ -334,7 +334,7 @@ QPushButton:hover{
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tiepdon_page"/>
      <widget class="QWidget" name="thanh_toan_page">
@@ -427,11 +427,20 @@ QLabel{
           <height>0</height>
          </size>
         </property>
+        <property name="font">
+         <font>
+          <family>Noto Sans</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(255, 255, 255);</string>
         </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::SelectedClicked</set>
+        </property>
         <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>199</number>
+         <number>147</number>
         </attribute>
         <attribute name="horizontalHeaderHighlightSections">
          <bool>true</bool>
@@ -440,10 +449,10 @@ QLabel{
          <number>100</number>
         </attribute>
         <attribute name="verticalHeaderDefaultSectionSize">
-         <number>80</number>
+         <number>30</number>
         </attribute>
         <attribute name="verticalHeaderMinimumSectionSize">
-         <number>80</number>
+         <number>30</number>
         </attribute>
         <column>
          <property name="text">
@@ -504,6 +513,22 @@ QLabel{
           <set>AlignCenter</set>
          </property>
         </column>
+        <column>
+         <property name="text">
+          <string>Thành tiền</string>
+         </property>
+         <property name="font">
+          <font>
+           <family>Noto Sans</family>
+           <pointsize>11</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="textAlignment">
+          <set>AlignCenter</set>
+         </property>
+        </column>
        </widget>
        <widget class="QComboBox" name="dich_vu_cbx">
         <property name="geometry">
@@ -513,6 +538,12 @@ QLabel{
           <width>321</width>
           <height>41</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Noto Sans</family>
+          <pointsize>12</pointsize>
+         </font>
         </property>
         <property name="insertPolicy">
          <enum>QComboBox::InsertAtBottom</enum>
@@ -744,7 +775,8 @@ QLabel{
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true">background-color: rgb(232, 232, 232);</string>
+            <string notr="true">background-color: rgb(232, 232, 232);
+color: rgb(0, 85, 255);</string>
            </property>
            <property name="inputMethodHints">
             <set>Qt::ImhDigitsOnly</set>
@@ -780,9 +812,9 @@ QLabel{
            <property name="font">
             <font>
              <family>Noto Sans</family>
-             <pointsize>14</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
+             <pointsize>12</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
             </font>
            </property>
            <property name="styleSheet">
@@ -792,7 +824,7 @@ QLabel{
             <set>Qt::ImhDigitsOnly</set>
            </property>
            <property name="maxLength">
-            <number>12</number>
+            <number>30</number>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -822,14 +854,17 @@ QLabel{
            <property name="font">
             <font>
              <family>Noto Sans</family>
-             <pointsize>14</pointsize>
+             <pointsize>13</pointsize>
              <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true">QLineEdit:hover{
-	border: 1.5px solid brown
+            <string notr="true">QLineEdit{
+	color: rgb(206, 46, 54);
+}
+QLineEdit:hover{
+	border: 1.5px solid brown,
 }</string>
            </property>
            <property name="inputMethodHints">
@@ -863,13 +898,14 @@ QLabel{
            <property name="font">
             <font>
              <family>Noto Sans</family>
-             <pointsize>14</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
+             <pointsize>12</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true">background-color: rgb(232, 232, 232);</string>
+            <string notr="true">background-color: rgb(232, 232, 232);
+color: rgb(186, 37, 44);</string>
            </property>
            <property name="inputMethodHints">
             <set>Qt::ImhDigitsOnly</set>
@@ -913,6 +949,12 @@ QLabel{
              <width>16777215</width>
              <height>35</height>
             </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Noto Sans</family>
+             <pointsize>12</pointsize>
+            </font>
            </property>
           </widget>
          </item>
@@ -983,7 +1025,8 @@ QLabel{
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true">background-color: rgb(232, 232, 232);</string>
+            <string notr="true">background-color: rgb(232, 232, 232);
+color: rgb(202, 30, 33);</string>
            </property>
            <property name="inputMethodHints">
             <set>Qt::ImhNone</set>
@@ -1047,7 +1090,7 @@ QLabel{
            <string notr="true"/>
           </property>
           <property name="text">
-           <string>Tiếp</string>
+           <string>Mới</string>
           </property>
          </widget>
         </item>
@@ -1096,6 +1139,21 @@ QLabel{
           </property>
           <property name="text">
            <string>Bỏ qua</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="ds_hd_btn">
+          <property name="font">
+           <font>
+            <family>Noto Sans</family>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>DS hoá đơn</string>
           </property>
          </widget>
         </item>

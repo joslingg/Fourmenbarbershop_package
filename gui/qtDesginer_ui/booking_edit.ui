@@ -110,7 +110,7 @@ QLabel {
         </font>
        </property>
        <property name="text">
-        <string>Mã thợ:</string>
+        <string>Tên thợ:</string>
        </property>
       </widget>
      </item>

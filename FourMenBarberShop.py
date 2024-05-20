@@ -7,6 +7,7 @@ from Fourmenbarbershop_package.subclasses.Signup import SignupForm
 from Fourmenbarbershop_package.subclasses import Barber
 from Fourmenbarbershop_package.subclasses import Booking
 from Fourmenbarbershop_package.subclasses import Inventory
+from Fourmenbarbershop_package.subclasses import Payment
 from Fourmenbarbershop_package.gui.FourMenBarberShop_ui import Ui_MainWindow
 from Fourmenbarbershop_package.MySQL_connector import MySQL_Connector
 import mysql.connector
@@ -48,6 +49,8 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         #Khai báo form vật tư
         self.booking_widget = Booking.BookingWidget(self.mysql_connector,self.main_ui,self)
         self.booking_widget.show_data_lichhen()
+        #Khai báo form thanh toán
+        self.payment_widget = Payment.PaymentWidget(self.mysql_connector,self.main_ui,self)
         
         #Kết nối button gọi form khách hàng
         self.main_ui.them_kh_btn.clicked.connect(self.customer_wid.open_customer_form)
