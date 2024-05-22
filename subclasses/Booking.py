@@ -84,7 +84,6 @@ class BookingWidget:
     def get_ngay(self):
         date = self.main_ui.calendarWidget.selectedDate()
         date_str = QtCore.QDate.toString(date,"yyyy-MM-dd")
-        print(date_str)
         return date_str
      
     def loc_lich(self):

@@ -272,10 +272,10 @@ QPushButton:checked{
     <widget class="QPushButton" name="logout_btn">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>620</y>
-       <width>131</width>
-       <height>41</height>
+       <x>20</x>
+       <y>610</y>
+       <width>141</width>
+       <height>51</height>
       </rect>
      </property>
      <property name="font">
@@ -398,6 +398,7 @@ QLineEdit{
        <property name="styleSheet">
         <string notr="true">QGroupBox{
 	color: rgb(136, 0, 0);
+	border: 0.5px solid brown;
 }
 QLabel{
 	color: rgb(31, 76, 124);
@@ -440,7 +441,7 @@ QLabel{
          <set>QAbstractItemView::SelectedClicked</set>
         </property>
         <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>147</number>
+         <number>145</number>
         </attribute>
         <attribute name="horizontalHeaderHighlightSections">
          <bool>true</bool>
@@ -725,6 +726,7 @@ border-bottom-right-radius: 10px;</string>
        <property name="styleSheet">
         <string notr="true">QGroupBox{
 	color: rgb(136, 0, 0);
+	border: 0.5px solid brown;
 }
 QLabel{
 	color: rgb(31, 76, 124);
@@ -955,6 +957,9 @@ color: rgb(186, 37, 44);</string>
              <family>Noto Sans</family>
              <pointsize>12</pointsize>
             </font>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
            </property>
           </widget>
          </item>
@@ -1996,10 +2001,67 @@ QLabel{
         </layout>
        </widget>
       </widget>
+      <widget class="QLineEdit" name="tim_kh_tbx">
+       <property name="geometry">
+        <rect>
+         <x>770</x>
+         <y>80</y>
+         <width>231</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Noto Sans</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLineEdit{
+	padding-left: 10px;
+}
+
+QLineEdit::hover{
+	border: 0.5px solid brown;
+}</string>
+       </property>
+       <property name="placeholderText">
+        <string>Tìm khách hàng</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="tim_kh_btn">
+       <property name="geometry">
+        <rect>
+         <x>1000</x>
+         <y>80</y>
+         <width>41</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	border-radius: 0;
+	background-color: rgb(136, 0, 0);
+}
+QPushButton::hover{
+	border: 0.5px solid brown;
+	background-color: rgb(171, 0, 0);
+}</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="bg_img.qrc">
+         <normaloff>:/img/search.png</normaloff>:/img/search.png</iconset>
+       </property>
+      </widget>
       <zorder>widget_7</zorder>
       <zorder>widget_8</zorder>
       <zorder>label_16</zorder>
       <zorder>groupBox_5</zorder>
+      <zorder>tim_kh_tbx</zorder>
+      <zorder>tim_kh_btn</zorder>
      </widget>
      <widget class="QWidget" name="tho_page">
       <property name="styleSheet">
@@ -2303,11 +2365,68 @@ border-bottom-right-radius: 10px;</string>
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+      <widget class="QLineEdit" name="tim_tho_tbx">
+       <property name="geometry">
+        <rect>
+         <x>770</x>
+         <y>60</y>
+         <width>231</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Noto Sans</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLineEdit{
+	padding-left: 10px;
+}
+
+QLineEdit::hover{
+	border: 0.5px solid brown;
+}</string>
+       </property>
+       <property name="placeholderText">
+        <string>Tìm thợ</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="tim_tho_btn">
+       <property name="geometry">
+        <rect>
+         <x>1000</x>
+         <y>60</y>
+         <width>41</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	border-radius: 0;
+	background-color: rgb(136, 0, 0);
+}
+QPushButton::hover{
+	border: 0.5px solid brown;
+	background-color: rgb(171, 0, 0);
+}</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="bg_img.qrc">
+         <normaloff>:/img/search.png</normaloff>:/img/search.png</iconset>
+       </property>
+      </widget>
       <zorder>widget_9</zorder>
       <zorder>widget_10</zorder>
       <zorder>layoutWidget_6</zorder>
       <zorder>ds_tho_tablewidget</zorder>
       <zorder>label_17</zorder>
+      <zorder>tim_tho_tbx</zorder>
+      <zorder>tim_tho_btn</zorder>
      </widget>
      <widget class="QWidget" name="vat_tu_page">
       <property name="styleSheet">
@@ -2591,11 +2710,68 @@ border-radius: 20px;</string>
         </item>
        </layout>
       </widget>
+      <widget class="QLineEdit" name="tim_vt_tbx">
+       <property name="geometry">
+        <rect>
+         <x>770</x>
+         <y>60</y>
+         <width>231</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Noto Sans</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLineEdit{
+	padding-left: 10px;
+}
+
+QLineEdit::hover{
+	border: 0.5px solid brown;
+}</string>
+       </property>
+       <property name="placeholderText">
+        <string>Tìm vật tư</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="tim_vt_btn">
+       <property name="geometry">
+        <rect>
+         <x>1000</x>
+         <y>60</y>
+         <width>41</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	border-radius: 0;
+	background-color: rgb(136, 0, 0);
+}
+QPushButton::hover{
+	border: 0.5px solid brown;
+	background-color: rgb(171, 0, 0);
+}</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="bg_img.qrc">
+         <normaloff>:/img/search.png</normaloff>:/img/search.png</iconset>
+       </property>
+      </widget>
       <zorder>widget_12</zorder>
       <zorder>widget_11</zorder>
       <zorder>ds_vattu_tablewidget</zorder>
       <zorder>label_18</zorder>
       <zorder>layoutWidget_7</zorder>
+      <zorder>tim_vt_tbx</zorder>
+      <zorder>tim_vt_btn</zorder>
      </widget>
     </widget>
    </widget>
@@ -2606,7 +2782,7 @@ border-radius: 20px;</string>
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

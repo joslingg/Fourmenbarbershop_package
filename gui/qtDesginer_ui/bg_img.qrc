@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="img">
+    <file>search.png</file>
     <file>../../Barbershop/1.png</file>
     <file>../../Barbershop/logout.png</file>
     <file>../../Barbershop/2.png</file>

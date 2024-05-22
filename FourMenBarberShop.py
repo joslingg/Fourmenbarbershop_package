@@ -18,7 +18,7 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         self.mysql_connector =   MySQL_Connector(
             host = '127.0.0.1',
             username = 'root',
-            password= 'admin',
+            password= '123@admin',
             database='4MEN_BARBERSHOP'
         )
         self.mysql_connector.connect()

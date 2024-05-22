@@ -140,7 +140,7 @@ class Ui_MainWindow(object):
         self.vattu_btn.setObjectName("vattu_btn")
         self.verticalLayout.addWidget(self.vattu_btn)
         self.logout_btn = QtWidgets.QPushButton(self.widget)
-        self.logout_btn.setGeometry(QtCore.QRect(30, 620, 131, 41))
+        self.logout_btn.setGeometry(QtCore.QRect(20, 610, 141, 51))
         font = QtGui.QFont()
         font.setFamily("Noto Sans")
         font.setPointSize(11)
@@ -220,6 +220,7 @@ class Ui_MainWindow(object):
         self.groupBox.setFont(font)
         self.groupBox.setStyleSheet("QGroupBox{\n"
 "    color: rgb(136, 0, 0);\n"
+"    border: 0.5px solid brown;\n"
 "}\n"
 "QLabel{\n"
 "    color: rgb(31, 76, 124);\n"
@@ -279,7 +280,7 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         item.setFont(font)
         self.ds_dich_vu_tb.setHorizontalHeaderItem(3, item)
-        self.ds_dich_vu_tb.horizontalHeader().setDefaultSectionSize(147)
+        self.ds_dich_vu_tb.horizontalHeader().setDefaultSectionSize(145)
         self.ds_dich_vu_tb.horizontalHeader().setHighlightSections(True)
         self.ds_dich_vu_tb.horizontalHeader().setMinimumSectionSize(100)
         self.ds_dich_vu_tb.verticalHeader().setDefaultSectionSize(30)
@@ -372,6 +373,7 @@ class Ui_MainWindow(object):
         self.groupBox_2.setFont(font)
         self.groupBox_2.setStyleSheet("QGroupBox{\n"
 "    color: rgb(136, 0, 0);\n"
+"    border: 0.5px solid brown;\n"
 "}\n"
 "QLabel{\n"
 "    color: rgb(31, 76, 124);\n"
@@ -477,7 +479,7 @@ class Ui_MainWindow(object):
         self.ten_kh_tbx.setStyleSheet("background-color: rgb(232, 232, 232);\n"
 "color: rgb(186, 37, 44);")
         self.ten_kh_tbx.setInputMethodHints(QtCore.Qt.ImhDigitsOnly)
-        self.ten_kh_tbx.setMaxLength(12)
+        self.ten_kh_tbx.setMaxLength(35)
         self.ten_kh_tbx.setAlignment(QtCore.Qt.AlignCenter)
         self.ten_kh_tbx.setReadOnly(True)
         self.ten_kh_tbx.setObjectName("ten_kh_tbx")
@@ -498,6 +500,7 @@ class Ui_MainWindow(object):
         font.setFamily("Noto Sans")
         font.setPointSize(12)
         self.ten_tho_cbx.setFont(font)
+        self.ten_tho_cbx.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.ten_tho_cbx.setObjectName("ten_tho_cbx")
         self.gridLayout.addWidget(self.ten_tho_cbx, 4, 1, 1, 1)
         self.label_6 = QtWidgets.QLabel(self.layoutWidget_3)
@@ -995,10 +998,41 @@ class Ui_MainWindow(object):
         self.in_kh_btn.setStyleSheet("")
         self.in_kh_btn.setObjectName("in_kh_btn")
         self.horizontalLayout_4.addWidget(self.in_kh_btn)
+        self.tim_kh_tbx = QtWidgets.QLineEdit(self.khach_hang_page)
+        self.tim_kh_tbx.setGeometry(QtCore.QRect(770, 80, 231, 41))
+        font = QtGui.QFont()
+        font.setFamily("Noto Sans")
+        font.setPointSize(10)
+        self.tim_kh_tbx.setFont(font)
+        self.tim_kh_tbx.setStyleSheet("QLineEdit{\n"
+"    padding-left: 10px;\n"
+"}\n"
+"\n"
+"QLineEdit::hover{\n"
+"    border: 0.5px solid brown;\n"
+"}")
+        self.tim_kh_tbx.setObjectName("tim_kh_tbx")
+        self.tim_kh_btn = QtWidgets.QPushButton(self.khach_hang_page)
+        self.tim_kh_btn.setGeometry(QtCore.QRect(1000, 80, 41, 41))
+        self.tim_kh_btn.setStyleSheet("QPushButton{\n"
+"    border-radius: 0;\n"
+"    background-color: rgb(136, 0, 0);\n"
+"}\n"
+"QPushButton::hover{\n"
+"    border: 0.5px solid brown;\n"
+"    background-color: rgb(171, 0, 0);\n"
+"}")
+        self.tim_kh_btn.setText("")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(":/img/search.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.tim_kh_btn.setIcon(icon2)
+        self.tim_kh_btn.setObjectName("tim_kh_btn")
         self.widget_7.raise_()
         self.widget_8.raise_()
         self.label_16.raise_()
         self.groupBox_5.raise_()
+        self.tim_kh_tbx.raise_()
+        self.tim_kh_btn.raise_()
         self.stackedWidget.addWidget(self.khach_hang_page)
         self.tho_page = QtWidgets.QWidget()
         self.tho_page.setStyleSheet("QPushButton{\n"
@@ -1140,11 +1174,40 @@ class Ui_MainWindow(object):
 "border-bottom-right-radius: 10px;")
         self.label_17.setAlignment(QtCore.Qt.AlignCenter)
         self.label_17.setObjectName("label_17")
+        self.tim_tho_tbx = QtWidgets.QLineEdit(self.tho_page)
+        self.tim_tho_tbx.setGeometry(QtCore.QRect(770, 60, 231, 41))
+        font = QtGui.QFont()
+        font.setFamily("Noto Sans")
+        font.setPointSize(10)
+        self.tim_tho_tbx.setFont(font)
+        self.tim_tho_tbx.setStyleSheet("QLineEdit{\n"
+"    padding-left: 10px;\n"
+"}\n"
+"\n"
+"QLineEdit::hover{\n"
+"    border: 0.5px solid brown;\n"
+"}")
+        self.tim_tho_tbx.setObjectName("tim_tho_tbx")
+        self.tim_tho_btn = QtWidgets.QPushButton(self.tho_page)
+        self.tim_tho_btn.setGeometry(QtCore.QRect(1000, 60, 41, 41))
+        self.tim_tho_btn.setStyleSheet("QPushButton{\n"
+"    border-radius: 0;\n"
+"    background-color: rgb(136, 0, 0);\n"
+"}\n"
+"QPushButton::hover{\n"
+"    border: 0.5px solid brown;\n"
+"    background-color: rgb(171, 0, 0);\n"
+"}")
+        self.tim_tho_btn.setText("")
+        self.tim_tho_btn.setIcon(icon2)
+        self.tim_tho_btn.setObjectName("tim_tho_btn")
         self.widget_9.raise_()
         self.widget_10.raise_()
         self.layoutWidget_6.raise_()
         self.ds_tho_tablewidget.raise_()
         self.label_17.raise_()
+        self.tim_tho_tbx.raise_()
+        self.tim_tho_btn.raise_()
         self.stackedWidget.addWidget(self.tho_page)
         self.vat_tu_page = QtWidgets.QWidget()
         self.vat_tu_page.setStyleSheet("QPushButton{\n"
@@ -1275,15 +1338,44 @@ class Ui_MainWindow(object):
         self.xoa_vattu_btn.setStyleSheet("")
         self.xoa_vattu_btn.setObjectName("xoa_vattu_btn")
         self.horizontalLayout_6.addWidget(self.xoa_vattu_btn)
+        self.tim_vt_tbx = QtWidgets.QLineEdit(self.vat_tu_page)
+        self.tim_vt_tbx.setGeometry(QtCore.QRect(770, 60, 231, 41))
+        font = QtGui.QFont()
+        font.setFamily("Noto Sans")
+        font.setPointSize(10)
+        self.tim_vt_tbx.setFont(font)
+        self.tim_vt_tbx.setStyleSheet("QLineEdit{\n"
+"    padding-left: 10px;\n"
+"}\n"
+"\n"
+"QLineEdit::hover{\n"
+"    border: 0.5px solid brown;\n"
+"}")
+        self.tim_vt_tbx.setObjectName("tim_vt_tbx")
+        self.tim_vt_btn = QtWidgets.QPushButton(self.vat_tu_page)
+        self.tim_vt_btn.setGeometry(QtCore.QRect(1000, 60, 41, 41))
+        self.tim_vt_btn.setStyleSheet("QPushButton{\n"
+"    border-radius: 0;\n"
+"    background-color: rgb(136, 0, 0);\n"
+"}\n"
+"QPushButton::hover{\n"
+"    border: 0.5px solid brown;\n"
+"    background-color: rgb(171, 0, 0);\n"
+"}")
+        self.tim_vt_btn.setText("")
+        self.tim_vt_btn.setIcon(icon2)
+        self.tim_vt_btn.setObjectName("tim_vt_btn")
         self.widget_12.raise_()
         self.widget_11.raise_()
         self.ds_vattu_tablewidget.raise_()
         self.label_18.raise_()
         self.layoutWidget_7.raise_()
+        self.tim_vt_tbx.raise_()
+        self.tim_vt_btn.raise_()
         self.stackedWidget.addWidget(self.vat_tu_page)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1280, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1280, 26))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -1390,6 +1482,7 @@ class Ui_MainWindow(object):
         self.sua_kh_btn.setText(_translate("MainWindow", "Sửa"))
         self.xoa_kh_btn.setText(_translate("MainWindow", "Xoá"))
         self.in_kh_btn.setText(_translate("MainWindow", "In DSKH"))
+        self.tim_kh_tbx.setPlaceholderText(_translate("MainWindow", "Tìm khách hàng"))
         self.them_tho_btn.setText(_translate("MainWindow", "Thêm"))
         self.sua_tho_btn.setText(_translate("MainWindow", "Sửa"))
         self.xoa_tho_btn.setText(_translate("MainWindow", "Xoá"))
@@ -1402,6 +1495,7 @@ class Ui_MainWindow(object):
         item = self.ds_tho_tablewidget.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "Số năm kinh nghiệm"))
         self.label_17.setText(_translate("MainWindow", "QUẢN LÝ THỢ"))
+        self.tim_tho_tbx.setPlaceholderText(_translate("MainWindow", "Tìm thợ"))
         item = self.ds_vattu_tablewidget.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Mã vật tư"))
         item = self.ds_vattu_tablewidget.horizontalHeaderItem(1)
@@ -1412,6 +1506,7 @@ class Ui_MainWindow(object):
         self.them_vattu_btn.setText(_translate("MainWindow", "Thêm"))
         self.sua_vattu_btn.setText(_translate("MainWindow", "Sửa"))
         self.xoa_vattu_btn.setText(_translate("MainWindow", "Xoá"))
+        self.tim_vt_tbx.setPlaceholderText(_translate("MainWindow", "Tìm vật tư"))
 from Fourmenbarbershop_package.gui import bg_img_rc
 
 

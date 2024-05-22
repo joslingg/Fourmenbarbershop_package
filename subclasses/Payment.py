@@ -25,6 +25,9 @@ class PaymentWidget:
         self.main_ui.ds_dich_vu_tb.itemChanged.connect(self.tinh_tien)
         self.main_ui.giam_gia_tbx.textChanged.connect(self.tinh_tien)
         self.main_ui.luu_btn.clicked.connect(self.luu_hd)
+        self.main_ui.bo_qua_btn.clicked.connect(self.bo_qua_hd)
+        self.main_ui.ds_dich_vu_tb.itemSelectionChanged.connect(self.get_info_dv)
+        self.main_ui.xoa_btn.clicked.connect(self.xoa_dich_vu)
         
     def get_ten_tho(self):
         query = "SELECT ten_tho FROM Tho"
@@ -62,6 +65,13 @@ class PaymentWidget:
         print(formated_current_time)
         return formated_current_time
     
+    def get_info_dv(self):
+        selected_items = self.main_ui.ds_dich_vu_tb.selectedItems()
+        if not selected_items:
+                return
+        row = self.main_ui.ds_dich_vu_tb.currentRow()
+        return row
+    
     #Hàm tìm tên khách hàng khi nhập sdt
     def get_ten_kh(self):
         sdt_kh = self.main_ui.sdt_kh_tbx.text()
@@ -79,8 +89,6 @@ class PaymentWidget:
         result = self._mysql_connector.execute_query(query=query,select=True)
         l_ten_dv = [result[0] for result in result]
         return l_ten_dv
-    
-    
     
     def them_dich_vu(self):
         dich_vu = self.main_ui.dich_vu_cbx.currentText()
@@ -103,6 +111,17 @@ class PaymentWidget:
             self.main_ui.ds_dich_vu_tb.setItem(rowCount,2,self.main_form.create_centered_item(str(formatted_dg)))
             self.main_ui.ds_dich_vu_tb.setItem(rowCount,3,self.main_form.create_centered_item(str(formatted_tt)))
         
+        self.tinh_tien()
+
+    def xoa_dich_vu(self):
+        selected_dv = self.get_info_dv()
+        if selected_dv is not None:
+            item = self.main_ui.ds_dich_vu_tb.item(selected_dv, 3)
+            if item is not None:
+                thanh_tien = float(item.text().replace('.', '').replace(',',''))
+                self.tong_tien -= thanh_tien
+            self.main_ui.ds_dich_vu_tb.removeRow(selected_dv)
+        self.tinh_tien() 
         
        
     def tinh_tien(self):
@@ -111,12 +130,21 @@ class PaymentWidget:
         
         if giam_gia:
             giam_gia_int = int(giam_gia)
-            tong_hoa_don = tong_tien_dv - ((int(giam_gia_int)/100) * tong_tien_dv)  
+            tong_hoa_don = tong_tien_dv - ((int(giam_gia_int)/100) * tong_tien_dv)
         else:
             tong_hoa_don = tong_tien_dv
         
         formatted_tong_hd = "{:,.0f}".format(tong_hoa_don).replace(',','.')
         self.main_ui.tong_tien_tbx.setText(str(formatted_tong_hd))
+    
+    def bo_qua_hd(self):
+        self.main_ui.so_hd_tbx.clear()
+        self.main_ui.time_tbx.clear()
+        self.main_ui.sdt_kh_tbx.clear()
+        self.main_ui.ten_kh_tbx.clear()
+        self.main_ui.giam_gia_tbx.clear()
+        self.main_ui.tong_tien_tbx.clear()
+        self.main_ui.ds_dich_vu_tb.setRowCount(0)
     
     def luu_hd(self):
         so_hd = self.generate_sohd()
