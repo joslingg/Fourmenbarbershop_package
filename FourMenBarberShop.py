@@ -124,6 +124,12 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
             return new_ma
         else:
             return str(obj_type+first_id)
+    
+    #Canh giữa item   
+    def create_centered_item(self,text):
+        item = QtWidgets.QTableWidgetItem(text)
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        return item
             
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

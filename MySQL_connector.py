@@ -40,8 +40,25 @@ class MySQL_Connector:
                     cursor.close()
             except mysql.connector.Error as err:
                 print(f"Lỗi: {err}")
-                return None
+                return None 
+        else: 
+            print("Không có database nào đang kết nối")
     
+    def execute_many_query(self,query,params=None,select=False):
+        if self.connection:
+            try:
+                cursor = self.connection.cursor()
+                cursor.executemany(query,params)
+                if select:
+                    result = cursor.fetchall()
+                    cursor.close()
+                    return result
+                else:
+                    self.connection.commit()
+                    cursor.close()
+            except mysql.connector.Error as err:
+                print(f"Lỗi: {err}")
+                return None 
         else: 
             print("Không có database nào đang kết nối")
                 

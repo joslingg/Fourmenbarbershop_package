@@ -911,7 +911,7 @@ color: rgb(186, 37, 44);</string>
             <set>Qt::ImhDigitsOnly</set>
            </property>
            <property name="maxLength">
-            <number>12</number>
+            <number>35</number>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
