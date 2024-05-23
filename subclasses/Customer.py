@@ -25,6 +25,16 @@ class CustomerWidget:
         self.customer_edit_ui.setupUi(self.customer_edit_form)
         self.main_ui.ds_kh_tablewidget.itemSelectionChanged.connect(self.get_info_kh)
         
+        #Gọi hàm tìm kiếm khách hàng
+        self.main_ui.tim_kh_btn.clicked.connect(self.tim_kh)
+        self.main_ui.tim_kh_tbx.returnPressed.connect(self.main_ui.tim_kh_btn.click)
+        
+        #Hiện gợi ý, lịch sử
+        self.completer = QtWidgets.QCompleter(self.hien_goi_y())
+        self.completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
+        self.completer.setFilterMode(QtCore.Qt.MatchContains)
+        self.main_ui.tim_kh_tbx.setCompleter(self.completer)
+        
     def open_customer_form(self):
         self.customer_form.show()
         self.customer_ui.loai_kh_them_cbx.addItems(self._loai_kh)
@@ -43,7 +53,11 @@ class CustomerWidget:
     def close_customer_edit_form(self):
         self.customer_edit_form.close()
     
-        
+    
+    def hien_goi_y(self):
+        query = "SELECT DISTINCT ma_kh, ten_kh, sdt_kh FROM KhachHang"
+        return self.main_form.get_search_history(query=query)
+    
     #Show danh sách khách hàng
     def show_data_kh(self):
         query = "SELECT * FROM KhachHang"
@@ -58,7 +72,27 @@ class CustomerWidget:
                     self.main_ui.ds_kh_tablewidget.setItem(row_index,col_index, item)
         else:
             print("Không có data Khách hàng")
-            
+    
+    def tim_kh(self):
+        if self.main_ui.tim_kh_tbx.text() == '':
+            self.show_data_kh()
+        else:
+            query = "SELECT * FROM KhachHang WHERE ma_kh=%s OR ten_kh=%s OR sdt_kh=%s"
+            params = (self.main_ui.tim_kh_tbx.text(),self.main_ui.tim_kh_tbx.text(),self.main_ui.tim_kh_tbx.text())
+            result = self._mysql_connector.execute_query(query=query,params=params,select=True)
+            if result:
+                self.main_ui.ds_kh_tablewidget.setRowCount(len(result))
+                self.main_ui.ds_kh_tablewidget.setColumnCount(5)
+                for row_index, row in enumerate(result):
+                    for col_index,value in enumerate(row):
+                        item = QtWidgets.QTableWidgetItem(str(value))
+                        item.setTextAlignment(QtCore.Qt.AlignCenter)
+                        self.main_ui.ds_kh_tablewidget.setItem(row_index,col_index, item)
+            else:
+                self.main_ui.ds_kh_tablewidget.clearContents()
+                self.main_ui.ds_kh_tablewidget.setItem(0,2,QtWidgets.QTableWidgetItem("Không có kết quả"))
+        
+        
     #CRUD - Khách hàng
     def get_ma(self):
         query = ("SELECT ma_kh FROM KhachHang ORDER BY ma_kh DESC LIMIT 1")

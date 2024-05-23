@@ -24,6 +24,15 @@ class BarberWidget():
         self.barber_edit_ui = barber_edit.Ui_barber_edit_form()
         self.barber_edit_ui.setupUi(self.barber_edit_form)
         self.main_ui.ds_tho_tablewidget.itemSelectionChanged.connect(self.get_info_tho)
+        
+        #Gọi hàm tìm kiếm vật tư
+        self.main_ui.tim_tho_btn.clicked.connect(self.tim_tho)
+        self.main_ui.tim_tho_tbx.returnPressed.connect(self.main_ui.tim_tho_btn.click)
+        #Hiện gợi ý, lịch sử
+        self.completer = QtWidgets.QCompleter(self.hien_goi_y())
+        self.completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
+        self.completer.setFilterMode(QtCore.Qt.MatchContains)
+        self.main_ui.tim_tho_tbx.setCompleter(self.completer)
 
     
     #Hàm mở đóng form thêm thợ
@@ -43,7 +52,31 @@ class BarberWidget():
         self.barber_edit_ui.ket_thuc_edit_tho_btn.clicked.connect(self.close_barber_edit_form)
     def close_barber_edit_form(self):
         self.barber_edit_form.close()
-        
+    
+    def hien_goi_y(self):
+        query = "SELECT DISTINCT ma_tho, ten_tho, sdt_tho FROM Tho"
+        return self.main_form.get_search_history(query=query)
+
+    #Tìm kiếm
+    def tim_tho(self):
+        if self.main_ui.tim_tho_tbx.text() == '':
+            self.show_data_tho()
+        else:
+            query = "SELECT * FROM Tho WHERE ma_tho=%s OR ten_tho=%s OR sdt_tho=%s"
+            params = (self.main_ui.tim_tho_tbx.text(),self.main_ui.tim_tho_tbx.text(),self.main_ui.tim_tho_tbx.text())
+            result = self._mysql_connector.execute_query(query=query,params=params,select=True)
+            if result:
+                self.main_ui.ds_tho_tablewidget.setRowCount(len(result))
+                self.main_ui.ds_tho_tablewidget.setColumnCount(4)
+                for row_index, row in enumerate(result):
+                    for col_index,value in enumerate(row):
+                        item = QtWidgets.QTableWidgetItem(str(value))
+                        item.setTextAlignment(QtCore.Qt.AlignCenter)
+                        self.main_ui.ds_tho_tablewidget.setItem(row_index,col_index, item)
+            else:
+                self.main_ui.ds_tho_tablewidget.clearContents()
+                self.main_ui.ds_tho_tablewidget.setItem(0,2,QtWidgets.QTableWidgetItem("Không có kết quả"))
+    
     #Show data thợ
     def show_data_tho(self):
         query = "SELECT * FROM Tho"

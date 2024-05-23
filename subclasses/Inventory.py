@@ -12,17 +12,25 @@ class InventoryWidget:
         self.main_ui = main_ui
         self.main_form = main_form
         self._mysql_connector = mysql_connector
-        #Khai báo inventory form
+        #vtai báo inventory form
         self.inventory_form = QtWidgets.QDialog()
         self.inventory_ui = inventory_ui.Ui_inventory_form()
         self.inventory_ui.setupUi(self.inventory_form)
         
-        #Khai báo inventory_edit form
+        #vtai báo inventory_edit form
         self.inventory_edit_form = QtWidgets.QDialog()
         self.inventory_edit_ui = inventory_edit_ui.Ui_inventory_edit_form()
         self.inventory_edit_ui.setupUi(self.inventory_edit_form)
         self.main_ui.ds_vattu_tablewidget.itemSelectionChanged.connect(self.get_info_vt)
-        
+    
+    #Gọi hàm tìm kiếm vật tư
+        self.main_ui.tim_vt_btn.clicked.connect(self.tim_vt)
+        self.main_ui.tim_vt_tbx.returnPressed.connect(self.main_ui.tim_vt_btn.click)
+    #Hiện gợi ý, lịch sử
+        self.completer = QtWidgets.QCompleter(self.hien_goi_y())
+        self.completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
+        self.completer.setFilterMode(QtCore.Qt.MatchContains)
+        self.main_ui.tim_vt_tbx.setCompleter(self.completer)
         
     #Hàm mở đóng form thêm vật tư
     def open_inventory_form(self):
@@ -40,7 +48,31 @@ class InventoryWidget:
         self.inventory_edit_ui.ket_thuc_vt_btn.clicked.connect(self.close_inventory_edit_form)
     def close_inventory_edit_form(self):
         self.inventory_edit_form.close()
-        
+    
+    def hien_goi_y(self):
+        query = "SELECT DISTINCT ma_vt, ten_vt FROM VatTu"
+        return self.main_form.get_search_history(query=query)
+
+    #Tìm kiếm
+    def tim_vt(self):
+        if self.main_ui.tim_vt_tbx.text() == '':
+            self.show_data_vattu()
+        else:
+            query = "SELECT * FROM VatTu WHERE ma_vt=%s OR ten_vt=%s"
+            params = (self.main_ui.tim_vt_tbx.text(),self.main_ui.tim_vt_tbx.text())
+            result = self._mysql_connector.execute_query(query=query,params=params,select=True)
+            if result:
+                self.main_ui.ds_vattu_tablewidget.setRowCount(len(result))
+                self.main_ui.ds_vattu_tablewidget.setColumnCount(3)
+                for row_index, row in enumerate(result):
+                    for col_index,value in enumerate(row):
+                        item = QtWidgets.QTableWidgetItem(str(value))
+                        item.setTextAlignment(QtCore.Qt.AlignCenter)
+                        self.main_ui.ds_vattu_tablewidget.setItem(row_index,col_index, item)
+            else:
+                self.main_ui.ds_vattu_tablewidget.clearContents()
+                self.main_ui.ds_vattu_tablewidget.setItem(0,1,QtWidgets.QTableWidgetItem("Không có kết quả"))
+    
     #Show data vật tư
     def show_data_vattu(self):
         query = """SELECT * FROM VatTu"""
@@ -121,7 +153,7 @@ class InventoryWidget:
             self.msgBox = QtWidgets.QMessageBox()
             self.msgBox.setWindowTitle("Xác nhận xoá")
             self.msgBox.setIcon(QtWidgets.QMessageBox.Question)
-            self.msgBox.setText(f"Có chắc bạn muốn xoá khách hàng {ma_vt} không?")
+            self.msgBox.setText(f"Có chắc bạn muốn xoá vtách hàng {ma_vt} Không?")
             self.msgBox.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
             self.msgBox.setDefaultButton(QtWidgets.QMessageBox.No)
             ret = self.msgBox.exec()

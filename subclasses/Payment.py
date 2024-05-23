@@ -1,9 +1,8 @@
 import sys
 sys.path.append('../DO AN')
 from PyQt5 import QtWidgets,QtCore
-from Fourmenbarbershop_package.gui import booking_ui
-from Fourmenbarbershop_package.gui import booking_edit
-from Fourmenbarbershop_package.gui import FourMenBarberShop_ui
+from Fourmenbarbershop_package.subclasses import Bill
+from Fourmenbarbershop_package.gui import bill_ui
 import mysql.connector
 import datetime
 
@@ -15,6 +14,9 @@ class PaymentWidget:
         self.main_form = main_form
         self.tong_tien = 0
         self.ds_dv = []
+        
+        #Khai báo bill form
+        self.bill_widget = Bill.BillWidget(mysql_connector,main_ui,main_form)
         
         self.main_ui.ten_tho_cbx.addItems(self.get_ten_tho())
         self.main_ui.tiep_btn.clicked.connect(self.generate_sohd)
@@ -28,13 +30,18 @@ class PaymentWidget:
         self.main_ui.bo_qua_btn.clicked.connect(self.bo_qua_hd)
         self.main_ui.ds_dich_vu_tb.itemSelectionChanged.connect(self.get_info_dv)
         self.main_ui.xoa_btn.clicked.connect(self.xoa_dich_vu)
+        self.main_ui.ds_hd_btn.clicked.connect(self.bill_widget.bill_form.show)
+        self.bill_widget.show_data_hd()
         
+    
+    #Lấy tên thợ hiển thị lên combobox  
     def get_ten_tho(self):
         query = "SELECT ten_tho FROM Tho"
         result = self._mysql_connector.execute_query(query=query,select=True)
         l_ten_tho = [result[0] for result in result]
         return l_ten_tho
     
+    #Sinh số HĐ
     def generate_sohd(self):
         query = "SELECT so_hd FROM HoaDon ORDER BY so_hd DESC LIMIT 1"
         obj_type = "HD"
@@ -44,6 +51,7 @@ class PaymentWidget:
         self.main_ui.so_hd_tbx.setText(so_hd)
         return so_hd
     
+    #Sinh số CTHĐ
     def generate_socthd(self):
         query = "SELECT so_cthd FROM ChiTietHoaDon ORDER BY so_cthd DESC LIMIT 1"
         obj_type = "CTHD"
@@ -58,6 +66,7 @@ class PaymentWidget:
         else:
             return str(obj_type+first_id)
     
+    #Lấy thời gian hiện tại
     def get_time(self):
         current_time = datetime.datetime.now()
         formated_current_time = current_time.strftime('%Y-%m-%d %H:%M:%S')
@@ -65,6 +74,7 @@ class PaymentWidget:
         print(formated_current_time)
         return formated_current_time
     
+    #Lấy thông tin dịch vụ được chọn
     def get_info_dv(self):
         selected_items = self.main_ui.ds_dich_vu_tb.selectedItems()
         if not selected_items:
@@ -83,13 +93,15 @@ class PaymentWidget:
         else:
             ten_kh = 'Khách vãng lai'
             self.main_ui.ten_kh_tbx.setText(ten_kh)
-            
+    
+    #Lấy danh sách dịch vụ hiển thị lên combobox     
     def get_dich_vu(self):
         query = "SELECT ten_dv FROM DichVu"
         result = self._mysql_connector.execute_query(query=query,select=True)
         l_ten_dv = [result[0] for result in result]
         return l_ten_dv
     
+    #Thêm dịch vụ
     def them_dich_vu(self):
         dich_vu = self.main_ui.dich_vu_cbx.currentText()
         so_luong = self.main_ui.sl_dich_vu_cbx.value()
@@ -113,6 +125,7 @@ class PaymentWidget:
         
         self.tinh_tien()
 
+    #Xoá dịch vụ
     def xoa_dich_vu(self):
         selected_dv = self.get_info_dv()
         if selected_dv is not None:
@@ -123,7 +136,7 @@ class PaymentWidget:
             self.main_ui.ds_dich_vu_tb.removeRow(selected_dv)
         self.tinh_tien() 
         
-       
+    #Tính tiền 
     def tinh_tien(self):
         giam_gia = self.main_ui.giam_gia_tbx.text()
         tong_tien_dv = self.tong_tien
@@ -138,14 +151,22 @@ class PaymentWidget:
         self.main_ui.tong_tien_tbx.setText(str(formatted_tong_hd))
     
     def bo_qua_hd(self):
+        #Clear textbox
         self.main_ui.so_hd_tbx.clear()
         self.main_ui.time_tbx.clear()
         self.main_ui.sdt_kh_tbx.clear()
         self.main_ui.ten_kh_tbx.clear()
         self.main_ui.giam_gia_tbx.clear()
         self.main_ui.tong_tien_tbx.clear()
+        #Clear row table
         self.main_ui.ds_dich_vu_tb.setRowCount(0)
+        #Set số lượng về 1
+        self.main_ui.sl_dich_vu_cbx.setValue(1)
+        #Set combobox về giá trị đầu
+        self.main_ui.ten_tho_cbx.setCurrentIndex(0)
+        self.main_ui.dich_vu_cbx.setCurrentIndex(0)
     
+    #Lưu hoá đơn
     def luu_hd(self):
         so_hd = self.generate_sohd()
         sdt_kh = self.main_ui.sdt_kh_tbx.text()

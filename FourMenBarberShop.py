@@ -112,7 +112,15 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         self.login_form.show()
         self.login_ui.password_edit.clear()
         self.login_ui.user_name_edit.clear()
-        
+    
+    #Hiện gợi ý tìm kiếm
+    def get_search_history(self,query):
+        result = self.mysql_connector.execute_query(query=query, select=True)
+        history = []
+        for record in result:
+            history.extend(record)
+        return history
+    
     #Tạo mã
     def generate_ma(self,query,obj_type,byte,first_id):
         result = self.mysql_connector.execute_query(query,select=True)
