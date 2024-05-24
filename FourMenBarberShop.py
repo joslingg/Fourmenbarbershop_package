@@ -19,7 +19,7 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         self.mysql_connector =   MySQL_Connector(
             host = '127.0.0.1',
             username = 'root',
-            password= 'admin',
+            password= '123@admin',
             database='4MEN_BARBERSHOP'
         )
         self.mysql_connector.connect()
@@ -73,7 +73,8 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         self.main_ui.sua_lich_btn.clicked.connect(self.booking_widget.open_booking_edit_form)
         self.main_ui.xoa_lich_btn.clicked.connect(self.booking_widget.delete_dl)
         #Kết nói button gọi form hoá đơn
-        self.main_ui.ds_hd_btn.clicked.connect(self.bill_widget.bill_form.show)
+        self.main_ui.ds_hd_btn.clicked.connect(self.bill_widget.open_bill_form)
+
     #Hàm nút gọi mở - đóng
     def show_connection(self):
         #Mở các widget trên cửa sổ chính

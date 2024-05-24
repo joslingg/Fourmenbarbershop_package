@@ -13,12 +13,16 @@ class BillWidget():
         self._mysql_connector = mysql_connector
         self.main_ui = main_ui
         self.main_form = main_form
+        self.tong_tien = 0
         
         #Khai báo bill form
         self.bill_form = QtWidgets.QWidget()
         self.bill_ui = bill_ui.Ui_bill_form()
         self.bill_ui.setupUi(self.bill_form)
         
+    def open_bill_form(self):
+        self.bill_form.show()
+        self.show_data_hd()
         
         #Gọi hàm tìm kiếm hoá đơn
         self.bill_ui.tim_hd_btn.clicked.connect(self.tim_hd)
@@ -33,6 +37,8 @@ class BillWidget():
 
         self.bill_ui.ds_hd_tb.itemSelectionChanged
         self.bill_ui.ds_hd_tb.cellDoubleClicked.connect(self.get_info_hd)
+        
+        self.bill_ui.xoa_hd_btn.clicked.connect(self.delete_hd)
         
     def hien_goi_y(self):
         query = "SELECT DISTINCT so_hd,ma_kh,ten_kh,sdt_kh,ma_tho FROM HoaDon"
@@ -144,9 +150,8 @@ class BillWidget():
             self.main_ui.ten_tho_cbx.setCurrentText(str(ten_tho))
             self.main_ui.dich_vu_cbx.setCurrentIndex(0)
             
-            Payment.PaymentWidget.tinh_tien
+            Payment.PaymentWidget.tinh_tien(self)
             
-            return so_hd
         except mysql.connector.Error as err:
             print(f'Lỗi: {err}')
             
@@ -154,11 +159,15 @@ class BillWidget():
     #Xoá - Hoá đơn
     def delete_hd(self):
         try:
-            so_hd = self.get_info_hd()
+            row = self.bill_ui.ds_hd_tb.currentRow()
+            so_hd = self.bill_ui.ds_hd_tb.item(row,0).text()
             
-            query = "DELETE FROM HoaDon WHERE so_hd = %s"
+            query_cthd = "DELETE FROM ChiTietHoaDon WHERE so_hd = %s"
             params = (so_hd,)
-            self._mysql_connector.execute_query(query=query,params=params)
+            
+            
+            query_hd = "DELETE FROM HoaDon WHERE so_hd = %s"
+            
             self.msgBox = QtWidgets.QMessageBox()
             self.msgBox.setWindowTitle("Xác nhận xoá")
             self.msgBox.setIcon(QtWidgets.QMessageBox.Question)
@@ -167,7 +176,8 @@ class BillWidget():
             self.msgBox.setDefaultButton(QtWidgets.QMessageBox.No)
             ret = self.msgBox.exec()
             if ret == self.msgBox.Yes:
-                self._mysql_connector.execute_query(query,params=params)
+                self._mysql_connector.execute_query(query=query_cthd,params=params)
+                self._mysql_connector.execute_query(query=query_hd,params=params)
                 self.show_data_hd()
                 print("Delete successfully")
             else:

@@ -12,12 +12,13 @@ class PaymentWidget:
         self.main_form = main_form
         self.tong_tien = 0
         self.ds_dv = []
+        self.so_hd = None
+        self.time = None
         
         
         
         self.main_ui.ten_tho_cbx.addItems(self.get_ten_tho())
-        self.main_ui.tiep_btn.clicked.connect(self.generate_sohd)
-        self.main_ui.tiep_btn.clicked.connect(self.get_time)
+        self.main_ui.tiep_btn.clicked.connect(self.tao_moi_hd)
         self.main_ui.sdt_kh_tbx.textChanged.connect(self.get_ten_kh)
         self.main_ui.dich_vu_cbx.addItems(self.get_dich_vu())
         self.main_ui.them_btn.clicked.connect(self.them_dich_vu)
@@ -37,15 +38,42 @@ class PaymentWidget:
         l_ten_tho = [result[0] for result in result]
         return l_ten_tho
     
-    #Sinh số HĐ
-    def generate_sohd(self):
-        query = "SELECT so_hd FROM HoaDon ORDER BY so_hd DESC LIMIT 1"
-        obj_type = "HD"
-        byte = 3
-        first_id = "001"
-        so_hd = self.main_form.generate_ma(query=query,obj_type=obj_type,byte=byte,first_id=first_id)
-        self.main_ui.so_hd_tbx.setText(so_hd)
-        return so_hd
+    def tao_moi_hd(self):
+        #Sinh số HĐ
+        print("dang tao moi hd")
+        def generate_sohd():
+            query = "SELECT so_hd FROM HoaDon ORDER BY so_hd DESC LIMIT 1"
+            obj_type = "HD"
+            byte = 3
+            first_id = "001"
+            so_hd = self.main_form.generate_ma(query=query,obj_type=obj_type,byte=byte,first_id=first_id)
+            self.main_ui.so_hd_tbx.setText(so_hd)
+            self.so_hd = so_hd
+            return so_hd
+        
+        #Lấy thời gian hiện tại
+        def get_time():
+            current_time = datetime.datetime.now()
+            formated_current_time = current_time.strftime('%Y-%m-%d %H:%M:%S')
+            self.main_ui.time_tbx.setText(formated_current_time)
+            self.time = formated_current_time
+            return formated_current_time
+        
+        self.main_ui.sdt_kh_tbx.clear()
+        self.main_ui.ten_kh_tbx.clear()
+        self.main_ui.giam_gia_tbx.clear()
+        self.main_ui.tong_tien_tbx.clear()
+        #Clear row table
+        self.main_ui.ds_dich_vu_tb.setRowCount(0)
+        #Set số lượng về 1
+        self.main_ui.sl_dich_vu_cbx.setValue(1)
+        #Set combobox về giá trị đầu
+        self.main_ui.ten_tho_cbx.setCurrentIndex(0)
+        self.main_ui.dich_vu_cbx.setCurrentIndex(0)
+        generate_sohd()
+        get_time()
+
+
     
     #Sinh số CTHĐ
     def generate_socthd(self):
@@ -62,13 +90,7 @@ class PaymentWidget:
         else:
             return str(obj_type+first_id)
     
-    #Lấy thời gian hiện tại
-    def get_time(self):
-        current_time = datetime.datetime.now()
-        formated_current_time = current_time.strftime('%Y-%m-%d %H:%M:%S')
-        self.main_ui.time_tbx.setText(formated_current_time)
-        print(formated_current_time)
-        return formated_current_time
+    
     
     #Lấy thông tin dịch vụ được chọn
     def get_info_dv(self):
@@ -134,17 +156,21 @@ class PaymentWidget:
         
     #Tính tiền 
     def tinh_tien(self):
-        giam_gia = self.main_ui.giam_gia_tbx.text()
-        tong_tien_dv = self.tong_tien
-        
-        if giam_gia:
-            giam_gia_int = int(giam_gia)
-            tong_hoa_don = tong_tien_dv - ((int(giam_gia_int)/100) * tong_tien_dv)
-        else:
-            tong_hoa_don = tong_tien_dv
-        
-        formatted_tong_hd = "{:,.0f}".format(tong_hoa_don).replace(',','.')
-        self.main_ui.tong_tien_tbx.setText(str(formatted_tong_hd))
+        try:
+            giam_gia = self.main_ui.giam_gia_tbx.text()
+            tong_tien_dv = self.tong_tien
+            
+            if giam_gia:
+                giam_gia_int = int(giam_gia)
+                tong_hoa_don = tong_tien_dv - ((int(giam_gia_int)/100) * tong_tien_dv)
+            else:
+                tong_hoa_don = tong_tien_dv
+            
+            formatted_tong_hd = "{:,.0f}".format(tong_hoa_don).replace(',','.')
+            self.main_ui.tong_tien_tbx.setText(str(formatted_tong_hd))
+        except mysql.connector.Error as err:
+            print(err)
+            QtWidgets.QMessageBox.information(self.main_form,"Thông báo","Nhập không đúng định dạng")
     
     def bo_qua_hd(self):
         #Clear textbox
@@ -164,9 +190,12 @@ class PaymentWidget:
     
     #Lưu hoá đơn
     def luu_hd(self):
-        so_hd = self.generate_sohd()
+        print("dang luu hd")
+        so_hd = self.so_hd
         sdt_kh = self.main_ui.sdt_kh_tbx.text()
-        thoi_gian_tt = self.get_time()
+        giam_gia_text = self.main_ui.giam_gia_tbx.text()
+        giam_gia = int(giam_gia_text) if giam_gia_text else 0
+        thoi_gian_tt = self.time
         so_cthd = self.generate_socthd()
         
         #Lấy mã khách hàng từ sdt
@@ -186,17 +215,16 @@ class PaymentWidget:
         else:
             ma_tho = None
         
-        query_hd = "INSERT INTO HoaDon (so_hd,ma_kh,sdt_kh,ma_tho,tong_tien,thoi_gian_tt) VALUES (%s,%s,%s,%s,%s,%s)"
-        params_hd = (so_hd,ma_kh,sdt_kh,ma_tho,self.tong_tien,thoi_gian_tt)
+        query_hd = "INSERT INTO HoaDon (so_hd,ma_kh,sdt_kh,ma_tho,giam_gia,tong_tien,thoi_gian_tt) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+        params_hd = (so_hd,ma_kh,sdt_kh,ma_tho,giam_gia,self.tong_tien,thoi_gian_tt)
         self._mysql_connector.execute_query(query=query_hd,params=params_hd)
         
         for row in range(self.main_ui.ds_dich_vu_tb.rowCount()):
             dich_vu = self.main_ui.ds_dich_vu_tb.item(row, 0).text()
             so_luong = self.main_ui.ds_dich_vu_tb.item(row, 1).text()
-            don_gia = self.main_ui.ds_dich_vu_tb.item(row, 2).text()
-            thanh_tien = self.main_ui.ds_dich_vu_tb.item(row, 3).text()
-            
-            
+            don_gia = float(self.main_ui.ds_dich_vu_tb.item(row, 2).text().replace('.', '').replace(',', ''))
+            thanh_tien = float(self.main_ui.ds_dich_vu_tb.item(row, 3).text().replace('.', '').replace(',', ''))
+              
             last_number = int(so_cthd[4:])
             new_number = last_number + 1
             so_cthd = "CTHD"+str(new_number).zfill(3)
@@ -217,5 +245,6 @@ class PaymentWidget:
         params_cthd = self.ds_dv
         self._mysql_connector.execute_many_query(query=query_cthd,params=params_cthd)
         print("Lưu hoá đơn thành công")
-            
+        QtWidgets.QMessageBox.information(self.main_form,"Thông báo","Lưu hoá đơn thành công")
+        self.tong_tien = 0
             
