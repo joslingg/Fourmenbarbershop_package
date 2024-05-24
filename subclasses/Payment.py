@@ -38,27 +38,27 @@ class PaymentWidget:
         l_ten_tho = [result[0] for result in result]
         return l_ten_tho
     
+    #Sinh số HĐ
+    def generate_sohd(self):
+        query = "SELECT so_hd FROM HoaDon ORDER BY so_hd DESC LIMIT 1"
+        obj_type = "HD"
+        byte = 3
+        first_id = "001"
+        so_hd = self.main_form.generate_ma(query=query,obj_type=obj_type,byte=byte,first_id=first_id)
+        self.main_ui.so_hd_tbx.setText(so_hd)
+        self.so_hd = so_hd
+        return so_hd
+        
+    #Lấy thời gian hiện tại
+    def get_time(self):
+        current_time = datetime.datetime.now()
+        formated_current_time = current_time.strftime('%Y-%m-%d %H:%M:%S')
+        self.main_ui.time_tbx.setText(formated_current_time)
+        self.time = formated_current_time
+        return formated_current_time
+    
     def tao_moi_hd(self):
-        #Sinh số HĐ
         print("dang tao moi hd")
-        def generate_sohd():
-            query = "SELECT so_hd FROM HoaDon ORDER BY so_hd DESC LIMIT 1"
-            obj_type = "HD"
-            byte = 3
-            first_id = "001"
-            so_hd = self.main_form.generate_ma(query=query,obj_type=obj_type,byte=byte,first_id=first_id)
-            self.main_ui.so_hd_tbx.setText(so_hd)
-            self.so_hd = so_hd
-            return so_hd
-        
-        #Lấy thời gian hiện tại
-        def get_time():
-            current_time = datetime.datetime.now()
-            formated_current_time = current_time.strftime('%Y-%m-%d %H:%M:%S')
-            self.main_ui.time_tbx.setText(formated_current_time)
-            self.time = formated_current_time
-            return formated_current_time
-        
         self.main_ui.sdt_kh_tbx.clear()
         self.main_ui.ten_kh_tbx.clear()
         self.main_ui.giam_gia_tbx.clear()
@@ -70,8 +70,8 @@ class PaymentWidget:
         #Set combobox về giá trị đầu
         self.main_ui.ten_tho_cbx.setCurrentIndex(0)
         self.main_ui.dich_vu_cbx.setCurrentIndex(0)
-        generate_sohd()
-        get_time()
+        self.generate_sohd()
+        self.get_time()
 
 
     
@@ -89,7 +89,6 @@ class PaymentWidget:
             return so_cthd
         else:
             return str(obj_type+first_id)
-    
     
     
     #Lấy thông tin dịch vụ được chọn
@@ -158,7 +157,15 @@ class PaymentWidget:
     def tinh_tien(self):
         try:
             giam_gia = self.main_ui.giam_gia_tbx.text()
-            tong_tien_dv = self.tong_tien
+            tong_tien_dv = 0.0
+            for row in range(self.main_ui.ds_dich_vu_tb.rowCount()):
+                item = self.main_ui.ds_dich_vu_tb.item(row,3)
+                if item is not None:
+                    thanh_tien_str = item.text()
+                    if thanh_tien_str:
+                        thanh_tien = float(thanh_tien_str)*1000
+                        tong_tien_dv += thanh_tien
+            self.tong_tien = tong_tien_dv
             
             if giam_gia:
                 giam_gia_int = int(giam_gia)
@@ -188,9 +195,100 @@ class PaymentWidget:
         self.main_ui.ten_tho_cbx.setCurrentIndex(0)
         self.main_ui.dich_vu_cbx.setCurrentIndex(0)
     
+    def kiem_tra_so_hd(self, so_hd):
+        # Kiểm tra xem số hoá đơn đã tồn tại trong dữ liệu hay không
+        query = "SELECT COUNT(*) FROM HoaDon WHERE so_hd = %s"
+        params = (so_hd,)
+        result = self._mysql_connector.execute_query(query=query, params=params, select=True)
+        return result[0][0] > 0
+    
     #Lưu hoá đơn
     def luu_hd(self):
-        print("dang luu hd")
+        # Lấy số hoá đơn từ textbox
+        so_hd = self.main_ui.so_hd_tbx.text()
+        
+        # Kiểm tra xem số hoá đơn đã tồn tại trong dữ liệu hay không
+        if self.kiem_tra_so_hd(so_hd):
+            # Nếu số hoá đơn đã tồn tại, là cập nhật hoá đơn
+            self.cap_nhat_hd()
+        else:
+            # Nếu số hoá đơn chưa tồn tại, là tạo mới hoá đơn
+            self.them_hd()
+    
+    def cap_nhat_hd(self):
+        so_hd = self.main_ui.so_hd_tbx.text()
+        sdt_kh = self.main_ui.sdt_kh_tbx.text()
+        giam_gia_text = self.main_ui.giam_gia_tbx.text()
+        giam_gia = int(giam_gia_text) if giam_gia_text else 0
+        thoi_gian_tt = self.get_time()
+        
+        #Lấy mã khách hàng từ sdt
+        query_kh = "SELECT ma_kh FROM KhachHang WHERE sdt_kh=%s"
+        result_kh = self._mysql_connector.execute_query(query=query_kh,params=(sdt_kh,),select=True)
+        if result_kh:
+            ma_kh = result_kh[0][0]
+        else:
+            ma_kh = None
+        
+        #Lấy mã thợ từ combobox
+        ten_tho = self.main_ui.ten_tho_cbx.currentText()
+        query_tho = "SELECT ma_tho FROM Tho WHERE ten_tho = %s"
+        result_tho = self._mysql_connector.execute_query(query=query_tho,params=(ten_tho,),select=True)
+        if result_tho:
+            ma_tho = result_tho[0][0]
+        else:
+            ma_tho = None
+        
+        query_hd = "UPDATE HoaDon SET ma_kh = %s, sdt_kh = %s, ma_tho = %s, giam_gia = %s, tong_tien = %s, thoi_gian_tt = %s WHERE so_hd = %s"
+        params_hd = (ma_kh, sdt_kh, ma_tho, giam_gia, self.tong_tien, thoi_gian_tt, so_hd)
+        self._mysql_connector.execute_query(query=query_hd,params=params_hd)
+        
+        self.cap_nhat_chi_tiet_hd(so_hd)
+        # Cập nhật thông tin cho từng dịch vụ trong bảng chi tiết hoá đơn
+        for cthd in self.ds_dv:
+            so_cthd, so_hd, ma_dv, so_luong, don_gia, thanh_tien = cthd
+            query_cthd = "UPDATE ChiTietHoaDon SET ma_dv = %s, so_luong_dv = %s, don_gia = %s, thanh_tien = %s WHERE so_hd = %s AND so_cthd = %s"
+            params_cthd = (ma_dv, so_luong, don_gia, thanh_tien, so_hd, so_cthd)
+            self._mysql_connector.execute_query(query=query_cthd,params=params_cthd)
+        
+        print("Cập nhật hoá đơn thành công")
+        QtWidgets.QMessageBox.information(self.main_form,"Thông báo","Cập nhật hoá đơn thành công")
+    
+    def cap_nhat_chi_tiet_hd(self, so_hd):
+        # Xóa tất cả các chi tiết hoá đơn hiện có của hoá đơn so_hd từ cơ sở dữ liệu
+        query_xoa = "DELETE FROM ChiTietHoaDon WHERE so_hd = %s"
+        self._mysql_connector.execute_query(query_xoa, (so_hd,))
+
+        # Thêm lại các chi tiết hoá đơn mới từ danh sách thanh toán
+        for row in range(self.main_ui.ds_dich_vu_tb.rowCount()):
+            dich_vu = self.main_ui.ds_dich_vu_tb.item(row, 0).text()
+            so_luong = int(self.main_ui.ds_dich_vu_tb.item(row, 1).text())
+            don_gia = float(self.main_ui.ds_dich_vu_tb.item(row, 2).text().replace('.', '').replace(',', ''))
+            thanh_tien = float(self.main_ui.ds_dich_vu_tb.item(row, 3).text().replace('.', '').replace(',', ''))
+
+            # Lấy mã dịch vụ từ tên dịch vụ
+            query_ma_dv = "SELECT ma_dv FROM DichVu WHERE ten_dv = %s"
+            result_ma_dv = self._mysql_connector.execute_query(query_ma_dv, (dich_vu,), select=True)
+            if result_ma_dv:
+                ma_dv = result_ma_dv[0][0]
+            else:
+                ma_dv = None
+
+            # Sinh số CTHD mới
+            so_cthd = self.generate_socthd()
+            last_number = int(so_cthd[4:])
+            new_number = last_number + 1
+            so_cthd = "CTHD"+str(new_number).zfill(3)
+            print(so_cthd)
+
+            # Thêm chi tiết hoá đơn vào cơ sở dữ liệu
+            query_them_cthd = "INSERT INTO ChiTietHoaDon (so_cthd, so_hd, ma_dv, so_luong_dv, don_gia, thanh_tien) VALUES (%s, %s, %s, %s, %s, %s)"
+            params_cthd = (so_cthd, so_hd, ma_dv, so_luong, don_gia, thanh_tien)
+            self._mysql_connector.execute_query(query_them_cthd, params_cthd)
+
+            print("Cập nhật chi tiết hoá đơn thành công")
+    
+    def them_hd(self):
         so_hd = self.so_hd
         sdt_kh = self.main_ui.sdt_kh_tbx.text()
         giam_gia_text = self.main_ui.giam_gia_tbx.text()

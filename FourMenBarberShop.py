@@ -19,7 +19,7 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         self.mysql_connector =   MySQL_Connector(
             host = '127.0.0.1',
             username = 'root',
-            password= '123@admin',
+            password= 'admin',
             database='4MEN_BARBERSHOP'
         )
         self.mysql_connector.connect()
@@ -36,7 +36,8 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         
         self.main_ui.logout_btn.clicked.connect(self.handle_logout)
         
-        self.login_form.show()
+        self.show()
+        #self.login_form.show()
         self.show_connection()
         #Khai báo form khách hàng
         self.customer_wid = Customer.CustomerWidget(self.mysql_connector,self.main_ui, self)

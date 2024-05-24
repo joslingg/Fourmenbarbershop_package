@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="img">
+    <file>medal1.png</file>
+    <file>medal2.png</file>
+    <file>medal3.png</file>
     <file>search.png</file>
     <file>../../Barbershop/1.png</file>
     <file>../../Barbershop/logout.png</file>

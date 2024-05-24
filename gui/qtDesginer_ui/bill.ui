@@ -47,9 +47,9 @@ QPushButton:pressed{
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>90</y>
+     <y>120</y>
      <width>921</width>
-     <height>521</height>
+     <height>491</height>
     </rect>
    </property>
    <property name="font">
@@ -61,7 +61,7 @@ QPushButton:pressed{
     </font>
    </property>
    <property name="editTriggers">
-    <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
+    <set>QAbstractItemView::DoubleClicked|QAbstractItemView::SelectedClicked</set>
    </property>
    <attribute name="horizontalHeaderCascadingSectionResizes">
     <bool>true</bool>
@@ -221,7 +221,7 @@ border-radius: 20px;</string>
    <property name="geometry">
     <rect>
      <x>730</x>
-     <y>40</y>
+     <y>65</y>
      <width>171</width>
      <height>41</height>
     </rect>
@@ -249,7 +249,7 @@ QLineEdit::hover{
    <property name="geometry">
     <rect>
      <x>900</x>
-     <y>40</y>
+     <y>65</y>
      <width>41</width>
      <height>41</height>
     </rect>
@@ -275,7 +275,7 @@ QPushButton::hover{
   <widget class="QWidget" name="layoutWidget_6">
    <property name="geometry">
     <rect>
-     <x>290</x>
+     <x>280</x>
      <y>626</y>
      <width>401</width>
      <height>71</height>
@@ -347,12 +347,90 @@ QPushButton::hover{
     </item>
    </layout>
   </widget>
+  <widget class="QDateEdit" name="dateEdit">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>65</y>
+     <width>181</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Noto Sans</family>
+     <pointsize>13</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(78, 74, 212);</string>
+   </property>
+   <property name="locale">
+    <locale language="Vietnamese" country="Vietnam"/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::UpDownArrows</enum>
+   </property>
+   <property name="displayFormat">
+    <string>dd/MM/yyyy</string>
+   </property>
+   <property name="calendarPopup">
+    <bool>true</bool>
+   </property>
+   <property name="timeSpec">
+    <enum>Qt::TimeZone</enum>
+   </property>
+   <property name="date">
+    <date>
+     <year>2024</year>
+     <month>5</month>
+     <day>24</day>
+    </date>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>30</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Noto Sans</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(136, 0, 0);</string>
+   </property>
+   <property name="text">
+    <string>Chọn ngày:</string>
+   </property>
+  </widget>
   <zorder>widget_10</zorder>
   <zorder>ds_hd_tb</zorder>
   <zorder>label_17</zorder>
   <zorder>tim_hd_tbx</zorder>
   <zorder>tim_hd_btn</zorder>
   <zorder>layoutWidget_6</zorder>
+  <zorder>dateEdit</zorder>
+  <zorder>label</zorder>
  </widget>
  <resources>
   <include location="bg_img.qrc"/>

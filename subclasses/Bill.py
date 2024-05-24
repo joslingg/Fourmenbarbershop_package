@@ -30,18 +30,20 @@ class BillWidget():
         
         
         #Hiện gợi ý, lịch sử
-        '''self.completer = QtWidgets.QCompleter(self.hien_goi_y())
+        self.completer = QtWidgets.QCompleter(self.hien_goi_y())
         self.completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
         self.completer.setFilterMode(QtCore.Qt.MatchContains)
-        self.bill_ui.tim_hd_tbx.setCompleter(self.completer)'''
+        self.bill_ui.tim_hd_tbx.setCompleter(self.completer)
 
         self.bill_ui.ds_hd_tb.itemSelectionChanged
         self.bill_ui.ds_hd_tb.cellDoubleClicked.connect(self.get_info_hd)
         
+        self.bill_ui.dateEdit.dateChanged.connect(self.loc_hoa_don)
+        
         self.bill_ui.xoa_hd_btn.clicked.connect(self.delete_hd)
         
     def hien_goi_y(self):
-        query = "SELECT DISTINCT so_hd,ma_kh,ten_kh,sdt_kh,ma_tho FROM HoaDon"
+        query = "SELECT DISTINCT so_hd,ma_kh,sdt_kh,ma_tho FROM HoaDon"
         return self.main_form.get_search_history(query=query)
 
     #Tìm kiếm
@@ -49,7 +51,7 @@ class BillWidget():
         if self.bill_ui.tim_hd_tbx.text() == '':
             self.show_data_hd()
         else:
-            query = "SELECT * FROM hd WHERE so_hd=%s OR ma_kh=%s OR ten_kh=%s OR ma_kh=%s OR ma_tho=%s"
+            query = "SELECT * FROM HoaDon WHERE so_hd=%s OR ma_kh=%s OR sdt_kh=%s OR ma_kh=%s OR ma_tho=%s"
             params = (self.bill_ui.tim_hd_tbx.text(),self.bill_ui.tim_hd_tbx.text(),self.bill_ui.tim_hd_tbx.text(),self.bill_ui.tim_hd_tbx.text(),self.bill_ui.tim_hd_tbx.text())
             result = self._mysql_connector.execute_query(query=query,params=params,select=True)
             if result:
@@ -59,10 +61,37 @@ class BillWidget():
                     for col_index,value in enumerate(row):
                         item = QtWidgets.QTableWidgetItem(str(value))
                         item.setTextAlignment(QtCore.Qt.AlignCenter)
-                        self.main_ui.ds_hd_tb.setItem(row_index,col_index, item)
+                        self.bill_ui.ds_hd_tb.setItem(row_index,col_index, item)
             else:
                 self.bill_ui.ds_hd_tb.clearContents()
                 self.bill_ui.ds_hd_tb.setItem(0,2,QtWidgets.QTableWidgetItem("Không có kết quả"))
+    
+    
+    def loc_hoa_don(self):
+        query = """SELECT DISTINCT*
+                FROM HoaDon
+                INNER JOIN KhachHang ON HoaDon.ma_kh = KhachHang.ma_kh
+                INNER JOIN Tho ON HoaDon.ma_tho = Tho.ma_tho
+                WHERE DATE_FORMAT(HoaDon.thoi_gian_tt, '%Y-%m-%d') = %s
+                ORDER BY HoaDon.thoi_gian_tt DESC"""
+        date = self.bill_ui.dateEdit.date()
+        date_str = date.toString("yyyy-MM-dd")
+        print(date_str)
+        params = (date_str,)
+        result = self._mysql_connector.execute_query(query, params=params, select=True)
+
+        if result:
+            self.bill_ui.ds_hd_tb.setRowCount(len(result))
+            self.bill_ui.ds_hd_tb.setColumnCount(7)
+            for row_index, row in enumerate(result):
+                for col_index, value in enumerate(row):
+                    item = QtWidgets.QTableWidgetItem(str(value))
+                    item.setTextAlignment(QtCore.Qt.AlignCenter)
+                    self.bill_ui.ds_hd_tb.setItem(row_index, col_index, item)
+        else:
+            self.bill_ui.ds_hd_tb.clearContents()
+            self.bill_ui.ds_hd_tb.setItem(0, 2, QtWidgets.QTableWidgetItem("Không có hoá đơn cho ngày này"))
+
     
     #Show data hoá đơn
     def show_data_hd(self):
@@ -93,9 +122,10 @@ class BillWidget():
             ma_tho = self.bill_ui.ds_hd_tb.item(row,3).text()
             giam_gia = self.bill_ui.ds_hd_tb.item(row,4).text()
             tong_tien = self.bill_ui.ds_hd_tb.item(row,5).text()
+            self.tong_tien = float(tong_tien)
             thoi_gian_tt = self.bill_ui.ds_hd_tb.item(row,6).text()
             
-        #Get tên khách hàng khi nhập sdt
+            #Get tên khách hàng khi nhập sdt
             query = "SELECT ten_kh FROM KhachHang WHERE ma_kh=%s"
             result = self._mysql_connector.execute_query(query=query,params=(ma_kh,),select=True)
             if result:
@@ -118,7 +148,7 @@ class BillWidget():
             self.main_ui.sdt_kh_tbx.setText(sdt_kh)
             self.main_ui.ten_kh_tbx.setText(ten_kh)
             self.main_ui.giam_gia_tbx.setText(giam_gia)
-            self.main_ui.tong_tien_tbx.setText(tong_tien)
+            self.main_ui.tong_tien_tbx.setText(str(self.tong_tien))
                 
             query_dv = "SELECT ma_dv,so_luong_dv,don_gia,thanh_tien FROM ChiTietHoaDon WHERE so_hd=%s"
             result_dv = self._mysql_connector.execute_query(query=query_dv,params=(so_hd,),select=True)
@@ -128,7 +158,7 @@ class BillWidget():
             for record in result_dv:
                 ma_dv, so_luong, don_gia, thanh_tien = record
                 formatted_dg = "{:,.0f}".format(don_gia).replace(',','.')
-                formatted_tt = "{:,.0f}".format(don_gia).replace(',','.')
+                formatted_tt = "{:,.0f}".format(thanh_tien).replace(',','.')
                 # Lấy tên dịch vụ từ ma_dv
                 query_dv_name = "SELECT ten_dv FROM DichVu WHERE ma_dv = %s"
                 result_dv_name = self._mysql_connector.execute_query(query=query_dv_name, params=(ma_dv,), select=True)
