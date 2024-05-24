@@ -8,6 +8,7 @@ from Fourmenbarbershop_package.subclasses import Barber
 from Fourmenbarbershop_package.subclasses import Booking
 from Fourmenbarbershop_package.subclasses import Inventory
 from Fourmenbarbershop_package.subclasses import Payment
+from Fourmenbarbershop_package.subclasses import Bill
 from Fourmenbarbershop_package.gui.FourMenBarberShop_ui import Ui_MainWindow
 from Fourmenbarbershop_package.MySQL_connector import MySQL_Connector
 import mysql.connector
@@ -18,7 +19,7 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         self.mysql_connector =   MySQL_Connector(
             host = '127.0.0.1',
             username = 'root',
-            password= '123@admin',
+            password= 'admin',
             database='4MEN_BARBERSHOP'
         )
         self.mysql_connector.connect()
@@ -51,6 +52,9 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         self.booking_widget.show_data_lichhen()
         #Khai báo form thanh toán
         self.payment_widget = Payment.PaymentWidget(self.mysql_connector,self.main_ui,self)
+        #Khai báo bill form
+        self.bill_widget = Bill.BillWidget(self.mysql_connector,self.main_ui,self)
+        self.bill_widget.show_data_hd()
         
         #Kết nối button gọi form khách hàng
         self.main_ui.them_kh_btn.clicked.connect(self.customer_wid.open_customer_form)
@@ -68,6 +72,8 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         self.main_ui.them_lich_btn.clicked.connect(self.booking_widget.open_booking_form)
         self.main_ui.sua_lich_btn.clicked.connect(self.booking_widget.open_booking_edit_form)
         self.main_ui.xoa_lich_btn.clicked.connect(self.booking_widget.delete_dl)
+        #Kết nói button gọi form hoá đơn
+        self.main_ui.ds_hd_btn.clicked.connect(self.bill_widget.bill_form.show)
     #Hàm nút gọi mở - đóng
     def show_connection(self):
         #Mở các widget trên cửa sổ chính

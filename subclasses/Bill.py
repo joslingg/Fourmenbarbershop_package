@@ -2,6 +2,7 @@ import sys
 sys.path.append('../DO AN')
 from PyQt5 import QtWidgets,QtCore
 from Fourmenbarbershop_package.gui import bill_ui
+from Fourmenbarbershop_package.subclasses import Payment
 from Fourmenbarbershop_package.gui import FourMenBarberShop_ui
 from Fourmenbarbershop_package import FourMenBarberShop
 import mysql.connector
@@ -18,9 +19,12 @@ class BillWidget():
         self.bill_ui = bill_ui.Ui_bill_form()
         self.bill_ui.setupUi(self.bill_form)
         
+        
         #Gọi hàm tìm kiếm hoá đơn
         self.bill_ui.tim_hd_btn.clicked.connect(self.tim_hd)
         self.bill_ui.tim_hd_tbx.returnPressed.connect(self.bill_ui.tim_hd_btn.click)
+        
+        
         #Hiện gợi ý, lịch sử
         '''self.completer = QtWidgets.QCompleter(self.hien_goi_y())
         self.completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
@@ -129,16 +133,18 @@ class BillWidget():
 
                 row_count = self.main_ui.ds_dich_vu_tb.rowCount()
                 self.main_ui.ds_dich_vu_tb.insertRow(row_count)
-                self.main_ui.ds_dich_vu_tb.setItem(row_count,0,QtWidgets.QTableWidgetItem(ten_dv))
-                self.main_ui.ds_dich_vu_tb.setItem(row_count,1,QtWidgets.QTableWidgetItem(str(so_luong)))
-                self.main_ui.ds_dich_vu_tb.setItem(row_count,2,QtWidgets.QTableWidgetItem(str(formatted_dg)))
-                self.main_ui.ds_dich_vu_tb.setItem(row_count,3,QtWidgets.QTableWidgetItem(str(formatted_tt)))
+                self.main_ui.ds_dich_vu_tb.setItem(row_count,0,self.main_form.create_centered_item(ten_dv))
+                self.main_ui.ds_dich_vu_tb.setItem(row_count,1,self.main_form.create_centered_item(str(so_luong)))
+                self.main_ui.ds_dich_vu_tb.setItem(row_count,2,self.main_form.create_centered_item(str(formatted_dg)))
+                self.main_ui.ds_dich_vu_tb.setItem(row_count,3,self.main_form.create_centered_item(str(formatted_tt)))
                                                    
             #Set số lượng về 1
             self.main_ui.sl_dich_vu_cbx.setValue(1)
             #Set combobox về giá trị đầu
             self.main_ui.ten_tho_cbx.setCurrentText(str(ten_tho))
             self.main_ui.dich_vu_cbx.setCurrentIndex(0)
+            
+            Payment.PaymentWidget.tinh_tien
             
             return so_hd
         except mysql.connector.Error as err:

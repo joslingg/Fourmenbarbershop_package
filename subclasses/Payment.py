@@ -1,8 +1,6 @@
 import sys
 sys.path.append('../DO AN')
 from PyQt5 import QtWidgets,QtCore
-from Fourmenbarbershop_package.subclasses import Bill
-from Fourmenbarbershop_package.gui import bill_ui
 import mysql.connector
 import datetime
 
@@ -15,8 +13,7 @@ class PaymentWidget:
         self.tong_tien = 0
         self.ds_dv = []
         
-        #Khai báo bill form
-        self.bill_widget = Bill.BillWidget(mysql_connector,main_ui,main_form)
+        
         
         self.main_ui.ten_tho_cbx.addItems(self.get_ten_tho())
         self.main_ui.tiep_btn.clicked.connect(self.generate_sohd)
@@ -30,8 +27,7 @@ class PaymentWidget:
         self.main_ui.bo_qua_btn.clicked.connect(self.bo_qua_hd)
         self.main_ui.ds_dich_vu_tb.itemSelectionChanged.connect(self.get_info_dv)
         self.main_ui.xoa_btn.clicked.connect(self.xoa_dich_vu)
-        self.main_ui.ds_hd_btn.clicked.connect(self.bill_widget.bill_form.show)
-        self.bill_widget.show_data_hd()
+        
         
     
     #Lấy tên thợ hiển thị lên combobox  
