@@ -1,6 +1,7 @@
 import sys
 sys.path.append('../DO AN')
 from PyQt5 import QtWidgets,QtCore
+from Fourmenbarbershop_package.subclasses import Statistics
 import mysql.connector
 import datetime
 
@@ -214,6 +215,7 @@ class PaymentWidget:
         else:
             # Nếu số hoá đơn chưa tồn tại, là tạo mới hoá đơn
             self.them_hd()
+            Statistics.StatisticsWidget.cap_nhat_doanh_thu(self)
     
     def cap_nhat_hd(self):
         so_hd = self.main_ui.so_hd_tbx.text()

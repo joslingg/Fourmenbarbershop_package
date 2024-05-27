@@ -115,7 +115,7 @@ QPushButton:checked{
        <number>0</number>
       </property>
       <item>
-       <widget class="QPushButton" name="tongquan_btn">
+       <widget class="QPushButton" name="thongke_btn">
         <property name="font">
          <font>
           <family>Noto Sans</family>
@@ -342,7 +342,7 @@ QPushButton:hover{
         <rect>
          <x>30</x>
          <y>120</y>
-         <width>271</width>
+         <width>291</width>
          <height>511</height>
         </rect>
        </property>
@@ -356,7 +356,8 @@ QPushButton:hover{
        </property>
        <property name="styleSheet">
         <string notr="true">QGroupBox{
-	background-color: rgba(92, 52, 52,70%);
+	
+	background-color: rgba(136, 61, 64,70%);
     border: none;
 }
 
@@ -365,12 +366,12 @@ QPushButton:hover{
        <property name="title">
         <string/>
        </property>
-       <widget class="QLabel" name="label_4">
+       <widget class="QLabel" name="so_luot_label">
         <property name="geometry">
          <rect>
-          <x>20</x>
-          <y>50</y>
-          <width>231</width>
+          <x>10</x>
+          <y>40</y>
+          <width>271</width>
           <height>141</height>
          </rect>
         </property>
@@ -383,7 +384,7 @@ QPushButton:hover{
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">color: rgb(255, 167, 38);</string>
+         <string notr="true">color: rgb(255, 255, 43);</string>
         </property>
         <property name="text">
          <string>TextLabel</string>
@@ -395,7 +396,7 @@ QPushButton:hover{
        <widget class="QLabel" name="label_5">
         <property name="geometry">
          <rect>
-          <x>30</x>
+          <x>40</x>
           <y>10</y>
           <width>211</width>
           <height>41</height>
@@ -422,8 +423,8 @@ QPushButton:hover{
        <widget class="QLabel" name="label_23">
         <property name="geometry">
          <rect>
-          <x>30</x>
-          <y>320</y>
+          <x>40</x>
+          <y>330</y>
           <width>211</width>
           <height>41</height>
          </rect>
@@ -446,25 +447,31 @@ QPushButton:hover{
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
-       <widget class="QLabel" name="label_22">
+       <widget class="QLabel" name="doanh_thu_label">
         <property name="geometry">
          <rect>
-          <x>20</x>
+          <x>10</x>
           <y>360</y>
-          <width>231</width>
+          <width>271</width>
           <height>141</height>
          </rect>
         </property>
         <property name="font">
          <font>
           <family>Noto Sans</family>
-          <pointsize>36</pointsize>
+          <pointsize>33</pointsize>
           <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">color: rgb(255, 167, 38);</string>
+         <string notr="true">color: rgb(255, 255, 43);</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="lineWidth">
+         <number>25</number>
         </property>
         <property name="text">
          <string>TextLabel</string>
@@ -474,7 +481,7 @@ QPushButton:hover{
         </property>
        </widget>
       </widget>
-      <widget class="QDateEdit" name="dateEdit">
+      <widget class="QDateEdit" name="start_date_edit">
        <property name="geometry">
         <rect>
          <x>30</x>
@@ -512,7 +519,7 @@ QPushButton:hover{
         </date>
        </property>
       </widget>
-      <widget class="QDateEdit" name="dateEdit_2">
+      <widget class="QDateEdit" name="end_date_edit">
        <property name="geometry">
         <rect>
          <x>190</x>
@@ -659,9 +666,9 @@ border-radius: 20px;</string>
       <widget class="QGroupBox" name="groupBox_8">
        <property name="geometry">
         <rect>
-         <x>320</x>
+         <x>330</x>
          <y>380</y>
-         <width>741</width>
+         <width>731</width>
          <height>251</height>
         </rect>
        </property>
@@ -675,7 +682,7 @@ border-radius: 20px;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">QGroupBox{;
-	background-color: rgba(16, 20, 10,70%);
+	background-color: rgb(255, 255, 255);
     color: #D32F2F; /* Đỏ đậm */
     border: none;
 }</string>
@@ -729,7 +736,7 @@ border-radius: 20px;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLabel" name="label_42">
+       <widget class="QLabel" name="tho_top2">
         <property name="geometry">
          <rect>
           <x>30</x>
@@ -775,7 +782,7 @@ border-radius: 20px;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLabel" name="label_39">
+       <widget class="QLabel" name="lan_tho3">
         <property name="geometry">
          <rect>
           <x>540</x>
@@ -799,7 +806,7 @@ border-radius: 20px;</string>
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
-       <widget class="QLabel" name="label_37">
+       <widget class="QLabel" name="tho_top3">
         <property name="geometry">
          <rect>
           <x>510</x>
@@ -826,7 +833,7 @@ border-radius: 20px;</string>
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
-       <widget class="QLabel" name="label_38">
+       <widget class="QLabel" name="lan_tho2">
         <property name="geometry">
          <rect>
           <x>60</x>
@@ -850,7 +857,7 @@ border-radius: 20px;</string>
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
-       <widget class="QLabel" name="label_36">
+       <widget class="QLabel" name="tho_top1">
         <property name="geometry">
          <rect>
           <x>280</x>
@@ -896,7 +903,7 @@ border-radius: 20px;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLabel" name="label_40">
+       <widget class="QLabel" name="lan_tho1">
         <property name="geometry">
          <rect>
           <x>300</x>
@@ -924,9 +931,9 @@ border-radius: 20px;</string>
       <widget class="QGroupBox" name="groupBox_9">
        <property name="geometry">
         <rect>
-         <x>320</x>
+         <x>330</x>
          <y>120</y>
-         <width>741</width>
+         <width>731</width>
          <height>251</height>
         </rect>
        </property>
@@ -940,9 +947,10 @@ border-radius: 20px;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">QGroupBox{
-	background-color: rgba(52, 52, 52,70%);
+	
+	background-color: rgba(255, 255, 255,80%);
     color: #1B5E20; /* Xanh lá đậm */
-    border: none;
+    border: 2px solid Blue;
 }</string>
        </property>
        <property name="title">
@@ -966,7 +974,7 @@ border-radius: 20px;</string>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">color: rgb(255, 255, 255);</string>
+         <string notr="true">color: rgb(136, 0, 0);</string>
         </property>
         <property name="text">
          <string>Số lần KH đến</string>
@@ -994,7 +1002,7 @@ border-radius: 20px;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLabel" name="label_26">
+       <widget class="QLabel" name="luot_kh2">
         <property name="geometry">
          <rect>
           <x>60</x>
@@ -1037,7 +1045,7 @@ border-radius: 20px;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLabel" name="label_30">
+       <widget class="QLabel" name="luot_kh1">
         <property name="geometry">
          <rect>
           <x>300</x>
@@ -1061,7 +1069,7 @@ border-radius: 20px;</string>
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
-       <widget class="QLabel" name="label_31">
+       <widget class="QLabel" name="kh_top1">
         <property name="geometry">
          <rect>
           <x>260</x>
@@ -1107,7 +1115,7 @@ border-radius: 20px;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLabel" name="label_33">
+       <widget class="QLabel" name="luot_kh3">
         <property name="geometry">
          <rect>
           <x>540</x>
@@ -1131,7 +1139,7 @@ border-radius: 20px;</string>
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
-       <widget class="QLabel" name="label_34">
+       <widget class="QLabel" name="kh_top2">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -1158,7 +1166,7 @@ border-radius: 20px;</string>
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
-       <widget class="QLabel" name="label_44">
+       <widget class="QLabel" name="kh_top3">
         <property name="geometry">
          <rect>
           <x>490</x>
@@ -1189,8 +1197,8 @@ border-radius: 20px;</string>
       <zorder>widget_14</zorder>
       <zorder>widget_13</zorder>
       <zorder>groupBox_6</zorder>
-      <zorder>dateEdit</zorder>
-      <zorder>dateEdit_2</zorder>
+      <zorder>start_date_edit</zorder>
+      <zorder>end_date_edit</zorder>
       <zorder>label</zorder>
       <zorder>label_3</zorder>
       <zorder>label_19</zorder>
@@ -3649,7 +3657,7 @@ QPushButton::hover{
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <tabstops>
-  <tabstop>tongquan_btn</tabstop>
+  <tabstop>thongke_btn</tabstop>
   <tabstop>sdt_kh_tbx</tabstop>
   <tabstop>ten_tho_cbx</tabstop>
   <tabstop>giam_gia_tbx</tabstop>

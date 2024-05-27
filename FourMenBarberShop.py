@@ -9,6 +9,7 @@ from Fourmenbarbershop_package.subclasses import Booking
 from Fourmenbarbershop_package.subclasses import Inventory
 from Fourmenbarbershop_package.subclasses import Payment
 from Fourmenbarbershop_package.subclasses import Bill
+from Fourmenbarbershop_package.subclasses import Statistics
 from Fourmenbarbershop_package.gui.FourMenBarberShop_ui import Ui_MainWindow
 from Fourmenbarbershop_package.MySQL_connector import MySQL_Connector
 import mysql.connector
@@ -56,6 +57,8 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         #Khai báo bill form
         self.bill_widget = Bill.BillWidget(self.mysql_connector,self.main_ui,self)
         self.bill_widget.show_data_hd()
+        #Khai báo form thống kê
+        self.statistics_widget = Statistics.StatisticsWidget(self.mysql_connector,self.main_ui,self)
         
         #Kết nối button gọi form khách hàng
         self.main_ui.them_kh_btn.clicked.connect(self.customer_wid.open_customer_form)
@@ -79,7 +82,7 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
     #Hàm nút gọi mở - đóng
     def show_connection(self):
         #Mở các widget trên cửa sổ chính
-        self.main_ui.tiepdon_btn.clicked.connect(self.showpage_tiepdon)
+        self.main_ui.thongke_btn.clicked.connect(self.showpage_thongke)
         self.main_ui.thanhtoan_btn.clicked.connect(self.showpage_thanhtoan)
         self.main_ui.lichhen_btn.clicked.connect(self.showpage_lichhen)
         self.main_ui.khachhang_btn.clicked.connect(self.showpage_khachhang)
@@ -88,8 +91,8 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         
         
     #Các hàm gọi widget tương ứng trên mainwindow
-    def showpage_tiepdon(self):
-        self.main_ui.stackedWidget.setCurrentWidget(self.main_ui.tiepdon_page)
+    def showpage_thongke(self):
+        self.main_ui.stackedWidget.setCurrentWidget(self.main_ui.thongke_page)
     def showpage_thanhtoan(self):
         self.main_ui.stackedWidget.setCurrentWidget(self.main_ui.thanh_toan_page)
     def showpage_lichhen(self):
@@ -146,6 +149,7 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         item = QtWidgets.QTableWidgetItem(text)
         item.setTextAlignment(QtCore.Qt.AlignCenter)
         return item
+    
             
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

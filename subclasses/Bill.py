@@ -3,6 +3,7 @@ sys.path.append('../DO AN')
 from PyQt5 import QtWidgets,QtCore
 from Fourmenbarbershop_package.gui import bill_ui
 from Fourmenbarbershop_package.subclasses import Payment
+from Fourmenbarbershop_package.subclasses import Statistics
 from Fourmenbarbershop_package.gui import FourMenBarberShop_ui
 from Fourmenbarbershop_package import FourMenBarberShop
 import mysql.connector
@@ -209,6 +210,7 @@ class BillWidget():
                 self._mysql_connector.execute_query(query=query_cthd,params=params)
                 self._mysql_connector.execute_query(query=query_hd,params=params)
                 self.show_data_hd()
+                Statistics.StatisticsWidget.cap_nhat_doanh_thu(self)
                 print("Delete successfully")
             else:
                 return
