@@ -52,8 +52,8 @@ class BillWidget():
         if self.bill_ui.tim_hd_tbx.text() == '':
             self.show_data_hd()
         else:
-            query = "SELECT * FROM HoaDon WHERE so_hd=%s OR ma_kh=%s OR sdt_kh=%s OR ma_kh=%s OR ma_tho=%s"
-            params = (self.bill_ui.tim_hd_tbx.text(),self.bill_ui.tim_hd_tbx.text(),self.bill_ui.tim_hd_tbx.text(),self.bill_ui.tim_hd_tbx.text(),self.bill_ui.tim_hd_tbx.text())
+            query = "SELECT * FROM HoaDon WHERE so_hd=%s OR ma_kh=%s OR sdt_kh=%s OR ma_tho=%s"
+            params = (self.bill_ui.tim_hd_tbx.text(),self.bill_ui.tim_hd_tbx.text(),self.bill_ui.tim_hd_tbx.text(),self.bill_ui.tim_hd_tbx.text())
             result = self._mysql_connector.execute_query(query=query,params=params,select=True)
             if result:
                 self.bill_ui.ds_hd_tb.setRowCount(len(result))
