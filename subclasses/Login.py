@@ -12,7 +12,6 @@ class LoginForm(QtWidgets.QDialog):
         self.login_ui.setupUi(self)
         
         self.login_ui.login_btn.clicked.connect(self.handle_login)
-        self.login_ui.create_acc_link.clicked.connect(self.open_signup_form)
         
     def handle_login(self):
         pass

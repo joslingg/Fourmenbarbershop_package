@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from . import bg_img_rc
+
 
 class Ui_signup_form(object):
     def setupUi(self, signup_form):
@@ -54,8 +54,14 @@ class Ui_signup_form(object):
 "\n"
 "}")
         self.signup_btn.setObjectName("signup_btn")
+        self.label_2 = QtWidgets.QLabel(signup_form)
+        self.label_2.setGeometry(QtCore.QRect(250, 10, 101, 101))
+        self.label_2.setText("")
+        self.label_2.setPixmap(QtGui.QPixmap(":/img/Barbershop/2.png"))
+        self.label_2.setScaledContents(True)
+        self.label_2.setObjectName("label_2")
         self.layoutWidget = QtWidgets.QWidget(signup_form)
-        self.layoutWidget.setGeometry(QtCore.QRect(30, 110, 312, 311))
+        self.layoutWidget.setGeometry(QtCore.QRect(30, 120, 312, 311))
         self.layoutWidget.setObjectName("layoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.layoutWidget)
         self.verticalLayout.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
@@ -100,18 +106,18 @@ class Ui_signup_form(object):
         self.confirmpw_edit.setAlignment(QtCore.Qt.AlignCenter)
         self.confirmpw_edit.setObjectName("confirmpw_edit")
         self.verticalLayout.addWidget(self.confirmpw_edit)
-        self.label_2 = QtWidgets.QLabel(signup_form)
-        self.label_2.setGeometry(QtCore.QRect(250, 10, 101, 101))
-        self.label_2.setText("")
-        self.label_2.setPixmap(QtGui.QPixmap(":/img/Barbershop/2.png"))
-        self.label_2.setScaledContents(True)
-        self.label_2.setObjectName("label_2")
+        self.role_cbx = QtWidgets.QComboBox(self.layoutWidget)
+        self.role_cbx.setMinimumSize(QtCore.QSize(310, 40))
+        self.role_cbx.setStyleSheet("QComboBox{\n"
+"    background-color: none;\n"
+"}\n"
+"")
+        self.role_cbx.setFrame(False)
+        self.role_cbx.setObjectName("role_cbx")
+        self.verticalLayout.addWidget(self.role_cbx)
 
         self.retranslateUi(signup_form)
         QtCore.QMetaObject.connectSlotsByName(signup_form)
-        signup_form.setTabOrder(self.user_name_edit, self.password_edit)
-        signup_form.setTabOrder(self.password_edit, self.confirmpw_edit)
-        signup_form.setTabOrder(self.confirmpw_edit, self.signup_btn)
 
     def retranslateUi(self, signup_form):
         _translate = QtCore.QCoreApplication.translate
@@ -121,5 +127,14 @@ class Ui_signup_form(object):
         self.user_name_edit.setPlaceholderText(_translate("signup_form", "Tên đăng nhập"))
         self.password_edit.setPlaceholderText(_translate("signup_form", "Mật khẩu"))
         self.confirmpw_edit.setPlaceholderText(_translate("signup_form", "Xác nhận mật khẩu"))
+from Fourmenbarbershop_package.gui import bg_img_rc
 
 
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    signup_form = QtWidgets.QDialog()
+    ui = Ui_signup_form()
+    ui.setupUi(signup_form)
+    signup_form.show()
+    sys.exit(app.exec_())

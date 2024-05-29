@@ -67,36 +67,6 @@ QPushButton:hover{
     <string>ĐĂNG NHẬP</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="create_acc_link">
-   <property name="geometry">
-    <rect>
-     <x>212</x>
-     <y>380</y>
-     <width>121</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Noto Sans</family>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QPushButton {
-	border: 0px;
-	color: rgb(255, 255, 255);
-}
-
-QPushButton:hover {
-	
-	color: rgb(255, 255, 0);
-};</string>
-   </property>
-   <property name="text">
-    <string>Tạo tài khoản</string>
-   </property>
-  </widget>
   <widget class="QLineEdit" name="user_name_edit">
    <property name="geometry">
     <rect>
@@ -203,12 +173,11 @@ QPushButton:hover {
  <tabstops>
   <tabstop>user_name_edit</tabstop>
   <tabstop>password_edit</tabstop>
-  <tabstop>create_acc_link</tabstop>
   <tabstop>login_btn</tabstop>
  </tabstops>
  <resources>
   <include location="bg_img.qrc"/>
-  <include location="../bg_img.qrc"/>
+  <include location="bg_img.qrc"/>
  </resources>
  <connections/>
 </ui>

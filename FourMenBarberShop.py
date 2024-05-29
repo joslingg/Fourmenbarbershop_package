@@ -20,7 +20,7 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         self.mysql_connector =   MySQL_Connector(
             host = '127.0.0.1',
             username = 'root',
-            password= 'admin',
+            password= '123@admin',
             database='4MEN_BARBERSHOP'
         )
         self.mysql_connector.connect()
@@ -33,7 +33,6 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         self.login_ui = self.login_form.login_ui
         
         self.login_ui.login_btn.clicked.connect(self.handle_login)
-        self.login_ui.create_acc_link.clicked.connect(self.open_signup_form)
         
         self.main_ui.stackedWidget_2.setCurrentWidget(self.main_ui.welcome_form)
         self.init_widgets()
@@ -44,8 +43,7 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         self.main_ui.dang_xuat_act.triggered.connect(self.handle_logout)
         self.main_ui.ket_thuc_act.triggered.connect(self.handle_exit)
         
-        self.show()
-        #self.login_form.show()
+        self.login_form.show()
         self.show_connection()
 
     
@@ -115,13 +113,21 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         self.main_ui.stackedWidget.setCurrentWidget(self.main_ui.vat_tu_page)
 
     def handle_login(self):
-        username = self.login_ui.user_name_edit.text()
+        userid = self.login_ui.user_name_edit.text()
         password = self.login_ui.password_edit.text()
-        if username == '1' and password == '1':
-            self.show()
-            self.login_form.close()
+        query = """SELECT user_name, pass_word FROM user_acc WHERE user_id=%s"""
+        result = self.mysql_connector.execute_query(query,params=(userid,),select=True)
+        if result:
+            if password == result[0][1]:
+                self.show()
+                self.login_form.close()
+                user_name = result[0][0]
+                self.main_ui.username_lb.setText(user_name)
+            else:
+                QtWidgets.QMessageBox.warning(None, "Lỗi đăng nhập","Mật khẩu không đúng. Vui lòng thử lại.")
         else:
-            QtWidgets.QMessageBox.warning(None, "Lỗi đăng nhập","Tên người dùng hoặc mật khẩu không đúng. Vui lòng thử lại.")
+            QtWidgets.QMessageBox.warning(None, "Lỗi đăng nhập","Tài khoản không đúng. Vui lòng thử lại.")
+                    
             
     def handle_signup(self):
         pass

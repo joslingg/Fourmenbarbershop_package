@@ -93,11 +93,30 @@ QPushButton:hover{
     <string>ĐĂNG KÝ</string>
    </property>
   </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>10</y>
+     <width>101</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="bg_img.qrc">:/img/Barbershop/2.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>110</y>
+     <y>120</y>
      <width>312</width>
      <height>311</height>
     </rect>
@@ -217,35 +236,33 @@ QPushButton:hover{
       </property>
      </widget>
     </item>
+    <item>
+     <widget class="QComboBox" name="role_cbx">
+      <property name="minimumSize">
+       <size>
+        <width>310</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox{
+	background-color: none;
+}
+</string>
+      </property>
+      <property name="frame">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
    </layout>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>250</x>
-     <y>10</y>
-     <width>101</width>
-     <height>101</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="../bg_img.qrc">:/img/Barbershop/2.png</pixmap>
-   </property>
-   <property name="scaledContents">
-    <bool>true</bool>
-   </property>
   </widget>
  </widget>
  <tabstops>
-  <tabstop>user_name_edit</tabstop>
-  <tabstop>password_edit</tabstop>
-  <tabstop>confirmpw_edit</tabstop>
   <tabstop>signup_btn</tabstop>
  </tabstops>
  <resources>
+  <include location="bg_img.qrc"/>
   <include location="../bg_img.qrc"/>
  </resources>
  <connections/>

@@ -9,28 +9,13 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from . import signup_ui
-from . import bg_img_rc
 
 
 class Ui_login_form(object):
-
-    def __init__(self):
-        self.login_form = QtWidgets.QDialog()
-        self.signup_form = None
-        self.MainWindow = None
-
-    def open_signup_form(self):
-        pass
-
-    def open_main_form(self):
-        pass
-
     def setupUi(self, login_form):
         login_form.setObjectName("login_form")
         login_form.resize(370, 570)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding,
-                                           QtWidgets.QSizePolicy.MinimumExpanding)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(login_form.sizePolicy().hasHeightForWidth())
@@ -47,32 +32,16 @@ class Ui_login_form(object):
         font.setWeight(75)
         self.login_btn.setFont(font)
         self.login_btn.setStyleSheet("QPushButton{\n"
-                                     "    background-color: rgb(255, 255, 255);\n"
-                                     "    color: rgb(136, 0, 0);\n"
-                                     "    border-style: outset;\n"
-                                     "    border-radius: 10px;\n"
-                                     "}\n"
-                                     "\n"
-                                     "QPushButton:hover{\n"
-                                     "    background-color: rgb(249, 186, 187);\n"
-                                     "}")
+"    background-color: rgb(255, 255, 255);\n"
+"    color: rgb(136, 0, 0);\n"
+"    border-style: outset;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"    background-color: rgb(249, 186, 187);\n"
+"}")
         self.login_btn.setObjectName("login_btn")
-        self.create_acc_link = QtWidgets.QPushButton(login_form)
-        self.create_acc_link.setGeometry(QtCore.QRect(212, 380, 121, 21))
-        font = QtGui.QFont()
-        font.setFamily("Noto Sans")
-        font.setPointSize(10)
-        self.create_acc_link.setFont(font)
-        self.create_acc_link.setStyleSheet("QPushButton {\n"
-                                           "    border: 0px;\n"
-                                           "    color: rgb(255, 255, 255);\n"
-                                           "}\n"
-                                           "\n"
-                                           "QPushButton:hover {\n"
-                                           "    \n"
-                                           "    color: rgb(255, 255, 0);\n"
-                                           "};")
-        self.create_acc_link.setObjectName("create_acc_link")
         self.user_name_edit = QtWidgets.QLineEdit(login_form)
         self.user_name_edit.setGeometry(QtCore.QRect(30, 260, 310, 40))
         self.user_name_edit.setMinimumSize(QtCore.QSize(310, 40))
@@ -107,13 +76,23 @@ class Ui_login_form(object):
 
         self.retranslateUi(login_form)
         QtCore.QMetaObject.connectSlotsByName(login_form)
+        login_form.setTabOrder(self.user_name_edit, self.password_edit)
+        login_form.setTabOrder(self.password_edit, self.login_btn)
 
     def retranslateUi(self, login_form):
         _translate = QtCore.QCoreApplication.translate
         login_form.setWindowTitle(_translate("login_form", "Đăng nhập"))
         self.login_btn.setText(_translate("login_form", "ĐĂNG NHẬP"))
-        self.create_acc_link.setText(_translate("login_form", "Tạo tài khoản"))
         self.user_name_edit.setPlaceholderText(_translate("login_form", "Tên đăng nhập"))
         self.password_edit.setPlaceholderText(_translate("login_form", "Mật khẩu"))
+from Fourmenbarbershop_package.gui import bg_img_rc
 
 
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    login_form = QtWidgets.QDialog()
+    ui = Ui_login_form()
+    ui.setupUi(login_form)
+    login_form.show()
+    sys.exit(app.exec_())
