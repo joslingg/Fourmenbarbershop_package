@@ -35,11 +35,23 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         self.login_ui.login_btn.clicked.connect(self.handle_login)
         self.login_ui.create_acc_link.clicked.connect(self.open_signup_form)
         
-        self.main_ui.logout_btn.clicked.connect(self.handle_logout)
+        self.main_ui.stackedWidget_2.setCurrentWidget(self.main_ui.welcome_form)
+        self.init_widgets()
+        
+        self.main_ui.quan_ly_tiem_act.triggered.connect(self.handle_main)
+        self.main_ui.phan_quyen_act.triggered.connect(self.handle_role)
+        self.main_ui.doi_mk_act.triggered.connect(self.handle_change_pw)
+        self.main_ui.dang_xuat_act.triggered.connect(self.handle_logout)
+        self.main_ui.ket_thuc_act.triggered.connect(self.handle_exit)
         
         self.show()
         #self.login_form.show()
         self.show_connection()
+
+    
+    def init_widgets(self):
+        #Khai báo form thống kê
+        self.statistics_widget = Statistics.StatisticsWidget(self.mysql_connector,self.main_ui,self)
         #Khai báo form khách hàng
         self.customer_wid = Customer.CustomerWidget(self.mysql_connector,self.main_ui, self)
         self.customer_wid.show_data_kh()
@@ -57,8 +69,6 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         #Khai báo bill form
         self.bill_widget = Bill.BillWidget(self.mysql_connector,self.main_ui,self)
         self.bill_widget.show_data_hd()
-        #Khai báo form thống kê
-        self.statistics_widget = Statistics.StatisticsWidget(self.mysql_connector,self.main_ui,self)
         
         #Kết nối button gọi form khách hàng
         self.main_ui.them_kh_btn.clicked.connect(self.customer_wid.open_customer_form)
@@ -117,6 +127,18 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         pass
     def open_signup_form(self):
         pass
+    
+    def handle_main(self):
+        self.main_ui.stackedWidget_2.setCurrentWidget(self.main_ui.manage_form)
+    
+    def handle_role(self):
+        pass
+    
+    def handle_change_pw(self):
+        pass
+    
+    def handle_exit(self):
+        self.close()
     
     def handle_logout(self):
         self.close()

@@ -215,7 +215,7 @@ class PaymentWidget:
         else:
             # Nếu số hoá đơn chưa tồn tại, là tạo mới hoá đơn
             self.them_hd()
-            Statistics.StatisticsWidget.cap_nhat_doanh_thu(self)
+            Statistics.StatisticsWidget.cap_nhat_dt_slhd(self)
     
     def cap_nhat_hd(self):
         so_hd = self.main_ui.so_hd_tbx.text()

@@ -3,7 +3,7 @@ sys.path.append('../DO AN')
 from PyQt5 import QtWidgets,QtCore
 import mysql.connector
 import datetime
-from PyQt5.QtCore import QTimer
+from PyQt5.QtCore import QTimer, QDate
 
 class StatisticsWidget:
     def __init__(self, mysql_connector, main_ui, main_form):
@@ -16,19 +16,22 @@ class StatisticsWidget:
         self.so_hd = None
         self.time = None
         
-        self.cap_nhat_dt_slhd()
+        
         self.top_kh()
         self.top_tho()
+        self.main_ui.start_date_edit.setDate(self.cap_nhat_dt_slhd_today())
+        self.main_ui.end_date_edit.setDate(self.cap_nhat_dt_slhd_today())
+        self.cap_nhat_dt_slhd()
         self.main_ui.start_date_edit.dateChanged.connect(self.cap_nhat_dt_slhd)
         self.main_ui.end_date_edit.dateChanged.connect(self.cap_nhat_dt_slhd)
         
     def cap_nhat_dt_slhd_today(self):
         # Lấy ngày hôm nay
-        ngay_hien_tai = datetime.date.today().strftime("%Y-%m-%d")
+        ngay_hien_tai = QDate.currentDate()
         return ngay_hien_tai
+    
         
     def cap_nhat_dt_slhd(self):
-        self.cap_nhat_dt_slhd_today()
         start_date = self.main_ui.start_date_edit.date()
         end_date = self.main_ui.end_date_edit.date()
         try:

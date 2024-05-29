@@ -210,7 +210,7 @@ class BillWidget():
                 self._mysql_connector.execute_query(query=query_cthd,params=params)
                 self._mysql_connector.execute_query(query=query_hd,params=params)
                 self.show_data_hd()
-                Statistics.StatisticsWidget.cap_nhat_doanh_thu(self)
+                Statistics.StatisticsWidget.cap_nhat_dt_slhd(self)
                 print("Delete successfully")
             else:
                 return
