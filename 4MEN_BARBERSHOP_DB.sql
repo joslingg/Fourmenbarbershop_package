@@ -52,7 +52,7 @@ create table user_acc(
 	user_id varchar(50) primary key,
     user_name varchar(50),
     pass_word varchar(16),
-    user_role enum('Admin','User')
+    user_role varchar
 );
 
 ALTER TABLE DatLich

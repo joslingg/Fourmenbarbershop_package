@@ -20,7 +20,7 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         self.mysql_connector =   MySQL_Connector(
             host = '127.0.0.1',
             username = 'root',
-            password= '123@admin',
+            password= 'admin',
             database='4MEN_BARBERSHOP'
         )
         self.mysql_connector.connect()
@@ -31,7 +31,7 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         
         self.login_form = LoginForm()
         self.login_ui = self.login_form.login_ui
-        self.signup_form = SignupForm()
+        self.signup_form = SignupForm(self.mysql_connector,self.main_ui, self)
         
         self.login_ui.login_btn.clicked.connect(self.handle_login)
         
@@ -140,6 +140,18 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         self.main_ui.stackedWidget_2.setCurrentWidget(self.main_ui.manage_form)
     
     def handle_role(self):
+        query = """SELECT user_name, user_id, user_role FROM user_acc"""
+        result = self.mysql_connector.execute_query(query,select=True)
+        if result:
+            self.main_ui.ds_user_tb.setRowCount(len(result))
+            self.main_ui.ds_user_tb.setColumnCount(3)
+            for row_index,row in enumerate(result):
+                for col_index,value in enumerate(row):
+                    item = QtWidgets.QTableWidgetItem(str(value))
+                    item.setTextAlignment(QtCore.Qt.AlignCenter)
+                    self.main_ui.ds_user_tb.setItem(row_index,col_index, item)
+                    
+        
         self.main_ui.stackedWidget_2.setCurrentWidget(self.main_ui.phan_quyen_wid)
         self.main_ui.them_user_btn.clicked.connect(self.signup_form.exec)
         
