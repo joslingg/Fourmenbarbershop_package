@@ -10,8 +10,10 @@ class SignupForm(QtWidgets.QDialog):
         #Khai báo signup form
         self.signup_ui = signup_ui.Ui_signup_form()
         self.signup_ui.setupUi(self)
+        self.user_role = ['Admin','Tiếp tân','Quản lý']
         
         self.signup_ui.signup_btn.clicked.connect(self.handle_signup)
+        self.signup_ui.role_cbx.addItems(self.user_role)
     
     def handle_signup(self):
         pass

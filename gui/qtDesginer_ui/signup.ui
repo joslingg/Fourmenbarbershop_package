@@ -32,7 +32,7 @@
    <string>Tạo tài khoản</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(136, 0, 0);</string>
+   <string notr="true"/>
   </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
@@ -116,7 +116,7 @@ QPushButton:hover{
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>120</y>
+     <y>130</y>
      <width>312</width>
      <height>311</height>
     </rect>
@@ -128,6 +128,40 @@ QPushButton:hover{
     <property name="sizeConstraint">
      <enum>QLayout::SetDefaultConstraint</enum>
     </property>
+    <item>
+     <widget class="QLineEdit" name="user_id_edit">
+      <property name="minimumSize">
+       <size>
+        <width>310</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>310</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Noto Sans</family>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="maxLength">
+       <number>30</number>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="placeholderText">
+       <string>Tên đăng nhập</string>
+      </property>
+     </widget>
+    </item>
     <item>
      <widget class="QLineEdit" name="user_name_edit">
       <property name="minimumSize">
@@ -158,7 +192,7 @@ QPushButton:hover{
        <set>Qt::AlignCenter</set>
       </property>
       <property name="placeholderText">
-       <string>Tên đăng nhập</string>
+       <string>Họ và tên</string>
       </property>
      </widget>
     </item>
@@ -244,11 +278,16 @@ QPushButton:hover{
         <height>40</height>
        </size>
       </property>
+      <property name="font">
+       <font>
+        <family>Noto Sans</family>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
       <property name="styleSheet">
        <string notr="true">QComboBox{
-	background-color: none;
-}
-</string>
+	padding: 0 0 0 120px;
+}</string>
       </property>
       <property name="frame">
        <bool>false</bool>
@@ -257,13 +296,31 @@ QPushButton:hover{
     </item>
    </layout>
   </widget>
+  <widget class="QWidget" name="widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>371</width>
+     <height>571</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(136, 0, 0);</string>
+   </property>
+  </widget>
+  <zorder>widget</zorder>
+  <zorder>label</zorder>
+  <zorder>signup_btn</zorder>
+  <zorder>label_2</zorder>
+  <zorder>layoutWidget</zorder>
  </widget>
  <tabstops>
   <tabstop>signup_btn</tabstop>
  </tabstops>
  <resources>
   <include location="bg_img.qrc"/>
-  <include location="../bg_img.qrc"/>
+  <include location="bg_img.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -31,9 +31,11 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         
         self.login_form = LoginForm()
         self.login_ui = self.login_form.login_ui
+        self.signup_form = SignupForm()
         
         self.login_ui.login_btn.clicked.connect(self.handle_login)
         
+        #Mở widget mặc định
         self.main_ui.stackedWidget_2.setCurrentWidget(self.main_ui.welcome_form)
         self.init_widgets()
         
@@ -138,7 +140,9 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         self.main_ui.stackedWidget_2.setCurrentWidget(self.main_ui.manage_form)
     
     def handle_role(self):
-        pass
+        self.main_ui.stackedWidget_2.setCurrentWidget(self.main_ui.phan_quyen_wid)
+        self.main_ui.them_user_btn.clicked.connect(self.signup_form.exec)
+        
     
     def handle_change_pw(self):
         pass
