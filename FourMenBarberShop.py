@@ -24,6 +24,7 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
             database='4MEN_BARBERSHOP'
         )
         self.mysql_connector.connect()
+        self.user_role = ['Admin','Tiếp tân','Quản lý']
         
         #Khai báo main window
         self.main_ui = Ui_MainWindow()
@@ -38,6 +39,7 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         #Mở widget mặc định
         self.main_ui.stackedWidget_2.setCurrentWidget(self.main_ui.welcome_form)
         self.init_widgets()
+        self.main_ui.stackedWidget.setCurrentWidget(self.main_ui.thongke_page)
         
         self.main_ui.quan_ly_tiem_act.triggered.connect(self.handle_main)
         self.main_ui.phan_quyen_act.triggered.connect(self.handle_role)
@@ -98,8 +100,80 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         self.main_ui.khachhang_btn.clicked.connect(self.showpage_khachhang)
         self.main_ui.tho_btn.clicked.connect(self.showpage_tho)
         self.main_ui.vattu_btn.clicked.connect(self.showpage_vattu)
-        
-        
+    
+    def show_data_user(self):
+        query = """SELECT user_name, user_id, user_role FROM user_acc"""
+        result = self.mysql_connector.execute_query(query,select=True)
+        if result:
+            self.main_ui.ds_user_tb.setRowCount(len(result))
+            self.main_ui.ds_user_tb.setColumnCount(3)
+            for row_index,row in enumerate(result):
+                for col_index,value in enumerate(row):
+                    item = QtWidgets.QTableWidgetItem(str(value))
+                    item.setTextAlignment(QtCore.Qt.AlignCenter)
+                    self.main_ui.ds_user_tb.setItem(row_index,col_index, item) 
+    
+    def get_info_user(self):
+        try:
+            self.main_ui.role_cbx.addItems(self.user_role)
+            selected_items = self.main_ui.ds_user_tb.selectedItems()
+            if not selected_items:
+                return
+            row = self.main_ui.ds_user_tb.currentRow()
+            user_name = self.main_ui.ds_user_tb.item(row,0).text()
+            user_id = self.main_ui.ds_user_tb.item(row,1).text()
+            user_role = self.main_ui.ds_user_tb.item(row,2).text()
+            
+            query = """SELECT pass_word FROM user_acc WHERE user_id=%s"""
+            result = self.mysql_connector.execute_query(query,params=(user_id,),select=True)
+            if result:
+                pass_word = result[0][0]
+            self.main_ui.user_id_edit.setText(user_id)
+            self.main_ui.user_name_edit.setText(user_name)
+            self.main_ui.password_edit.setText(pass_word)
+            self.main_ui.role_cbx.setCurrentText(user_role)
+        except mysql.connector.Error as err:
+            print(err)
+    
+    def update_user(self):
+        try:
+            user_id = self.main_ui.user_id_edit.text()
+            user_name = self.main_ui.user_name_edit.text()
+            pass_word = self.main_ui.password_edit.text()
+            user_role = self.main_ui.role_cbx.currentText()
+            query = """UPDATE user_acc SET user_name=%s,pass_word=%s,user_role=%s WHERE user_id=%s"""
+            params = (user_name,pass_word,user_role,user_id)
+            self.mysql_connector.execute_query(query=query,params=params)
+            QtWidgets.QMessageBox.information(None, "Thông báo","Cập nhật tài khoản thành công")
+            self.show_data_user()
+        except:
+            QtWidgets.QMessageBox.warning(None, "Thông báo","Cập nhật tài khoản không thành công, vui lòng thử lại sau!")
+    
+    def delete_user(self):
+        try:
+            selected_items = self.main_ui.ds_user_tb.selectedItems()
+            if not selected_items:
+                return
+            row = self.main_ui.ds_user_tb.currentRow()
+            user_id = self.main_ui.ds_user_tb.item(row,1).text()
+            query = "DELETE FROM user_acc WHERE user_id = %s"
+            params = (user_id,)
+            self.msgBox = QtWidgets.QMessageBox()
+            self.msgBox.setWindowTitle("Xác nhận xoá")
+            self.msgBox.setIcon(QtWidgets.QMessageBox.Question)
+            self.msgBox.setText(f"Có chắc bạn muốn xoá người dùng {user_id} không?")
+            self.msgBox.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+            self.msgBox.setDefaultButton(QtWidgets.QMessageBox.No)
+            ret = self.msgBox.exec()
+            if ret == self.msgBox.Yes:
+                self.mysql_connector.execute_query(query,params=params)
+                self.show_data_user()
+                QtWidgets.QMessageBox.information(None, "Thông báo","Xoá thành công!")
+            else:
+                return
+        except mysql.connector.Error as err:
+            QtWidgets.QMessageBox.warning(None, "Thông báo","Xoá người dùng không thành công, vui lòng thử lại sau!")
+    
     #Các hàm gọi widget tương ứng trên mainwindow
     def showpage_thongke(self):
         self.main_ui.stackedWidget.setCurrentWidget(self.main_ui.thongke_page)
@@ -117,19 +191,40 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
     def handle_login(self):
         userid = self.login_ui.user_name_edit.text()
         password = self.login_ui.password_edit.text()
-        query = """SELECT user_name, pass_word FROM user_acc WHERE user_id=%s"""
+        query = """SELECT user_name, pass_word, user_role FROM user_acc WHERE user_id=%s"""
         result = self.mysql_connector.execute_query(query,params=(userid,),select=True)
         if result:
             if password == result[0][1]:
                 self.show()
                 self.login_form.close()
                 user_name = result[0][0]
+                user_role = result[0][2]
                 self.main_ui.username_lb.setText(user_name)
+                self.check_user_role(user_role)
             else:
                 QtWidgets.QMessageBox.warning(None, "Lỗi đăng nhập","Mật khẩu không đúng. Vui lòng thử lại.")
         else:
             QtWidgets.QMessageBox.warning(None, "Lỗi đăng nhập","Tài khoản không đúng. Vui lòng thử lại.")
-                    
+    
+    def check_user_role(self, user_role):
+        if user_role == 'Admin' or user_role == 'Quản lý':
+            # Admin và Quản lý có thể truy cập tất cả các chức năng
+            self.main_ui.thongke_btn.setVisible(True)
+            self.main_ui.thanhtoan_btn.setVisible(True)
+            self.main_ui.lichhen_btn.setVisible(True)
+            self.main_ui.khachhang_btn.setVisible(True)
+            self.main_ui.tho_btn.setVisible(True)
+            self.main_ui.vattu_btn.setVisible(True)
+            self.main_ui.phan_quyen_act.setVisible(True)
+        elif user_role == 'Tiếp tân':
+            # Tiếp tân chỉ có thể truy cập các chức năng đặt lịch hẹn, thanh toán và thống kê
+            self.main_ui.thongke_btn.setVisible(True)
+            self.main_ui.thanhtoan_btn.setVisible(True)
+            self.main_ui.lichhen_btn.setVisible(True)
+            self.main_ui.khachhang_btn.setVisible(False)
+            self.main_ui.tho_btn.setVisible(False)
+            self.main_ui.vattu_btn.setVisible(False)
+            self.main_ui.phan_quyen_act.setVisible(False)           
             
     def handle_signup(self):
         pass
@@ -140,20 +235,13 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         self.main_ui.stackedWidget_2.setCurrentWidget(self.main_ui.manage_form)
     
     def handle_role(self):
-        query = """SELECT user_name, user_id, user_role FROM user_acc"""
-        result = self.mysql_connector.execute_query(query,select=True)
-        if result:
-            self.main_ui.ds_user_tb.setRowCount(len(result))
-            self.main_ui.ds_user_tb.setColumnCount(3)
-            for row_index,row in enumerate(result):
-                for col_index,value in enumerate(row):
-                    item = QtWidgets.QTableWidgetItem(str(value))
-                    item.setTextAlignment(QtCore.Qt.AlignCenter)
-                    self.main_ui.ds_user_tb.setItem(row_index,col_index, item)
-                    
-        
+        self.show_data_user()
         self.main_ui.stackedWidget_2.setCurrentWidget(self.main_ui.phan_quyen_wid)
-        self.main_ui.them_user_btn.clicked.connect(self.signup_form.exec)
+        self.main_ui.them_user_btn.clicked.connect(self.signup_form.show)
+        self.main_ui.ds_user_tb.selectedItems
+        self.main_ui.sua_user_btn.clicked.connect(self.get_info_user)
+        self.main_ui.luu_user_btn.clicked.connect(self.update_user)
+        self.main_ui.xoa_user_btn.clicked.connect(self.delete_user)
         
     
     def handle_change_pw(self):
@@ -164,9 +252,13 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
     
     def handle_logout(self):
         self.close()
+        self.main_ui.stackedWidget_2.setCurrentWidget(self.main_ui.welcome_form)
+        self.main_ui.stackedWidget.setCurrentWidget(self.main_ui.thongke_page)
         self.login_form.show()
         self.login_ui.password_edit.clear()
         self.login_ui.user_name_edit.clear()
+    
+    
     
     #Hiện gợi ý tìm kiếm
     def get_search_history(self,query):

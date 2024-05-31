@@ -65,7 +65,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="welcome_form">
      <widget class="QFrame" name="bg_welcome">
@@ -165,7 +165,7 @@ QPushButton:checked{
            <bool>true</bool>
           </property>
           <property name="checked">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="autoExclusive">
            <bool>true</bool>
@@ -372,7 +372,7 @@ QPushButton:checked{
         <string notr="true"/>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="thongke_page">
         <widget class="QGroupBox" name="groupBox_7">
@@ -706,8 +706,8 @@ border-radius: 20px;</string>
           <rect>
            <x>330</x>
            <y>120</y>
-           <width>721</width>
-           <height>511</height>
+           <width>331</width>
+           <height>231</height>
           </rect>
          </property>
          <property name="font">
@@ -732,16 +732,16 @@ border-radius: 20px;</string>
          <widget class="QLabel" name="label_31">
           <property name="geometry">
            <rect>
-            <x>70</x>
-            <y>-10</y>
-            <width>581</width>
+            <x>0</x>
+            <y>0</y>
+            <width>331</width>
             <height>71</height>
            </rect>
           </property>
           <property name="font">
            <font>
             <family>Noto Sans</family>
-            <pointsize>18</pointsize>
+            <pointsize>15</pointsize>
             <weight>75</weight>
             <bold>true</bold>
            </font>
@@ -750,34 +750,7 @@ border-radius: 20px;</string>
            <string notr="true">color: rgb(136, 0, 0);</string>
           </property>
           <property name="text">
-           <string>TOP 3 Khách hàng đến nhiều nhất</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label">
-          <property name="geometry">
-           <rect>
-            <x>160</x>
-            <y>260</y>
-            <width>411</width>
-            <height>41</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>Noto Sans</family>
-            <pointsize>18</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color: rgb(136,0,0);</string>
-          </property>
-          <property name="text">
-           <string>TOP 3 Thợ hớt nhiều nhất</string>
+           <string>TOP 3 KH đến nhiều nhất</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -786,10 +759,10 @@ border-radius: 20px;</string>
          <widget class="QLabel" name="label_2">
           <property name="geometry">
            <rect>
-            <x>60</x>
-            <y>60</y>
-            <width>61</width>
-            <height>61</height>
+            <x>0</x>
+            <y>70</y>
+            <width>41</width>
+            <height>41</height>
            </rect>
           </property>
           <property name="text">
@@ -808,10 +781,10 @@ border-radius: 20px;</string>
          <widget class="QLabel" name="label_3">
           <property name="geometry">
            <rect>
-            <x>70</x>
-            <y>130</y>
-            <width>51</width>
-            <height>51</height>
+            <x>0</x>
+            <y>120</y>
+            <width>41</width>
+            <height>41</height>
            </rect>
           </property>
           <property name="text">
@@ -830,8 +803,8 @@ border-radius: 20px;</string>
          <widget class="QLabel" name="label_5">
           <property name="geometry">
            <rect>
-            <x>80</x>
-            <y>190</y>
+            <x>0</x>
+            <y>170</y>
             <width>41</width>
             <height>41</height>
            </rect>
@@ -846,211 +819,13 @@ border-radius: 20px;</string>
            <bool>true</bool>
           </property>
          </widget>
-         <widget class="QLabel" name="label_6">
-          <property name="geometry">
-           <rect>
-            <x>70</x>
-            <y>380</y>
-            <width>51</width>
-            <height>51</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap resource="bg_img.qrc">:/img/medal2.png</pixmap>
-          </property>
-          <property name="scaledContents">
-           <bool>true</bool>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_7">
-          <property name="geometry">
-           <rect>
-            <x>80</x>
-            <y>440</y>
-            <width>41</width>
-            <height>41</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap resource="bg_img.qrc">:/img/medal3.png</pixmap>
-          </property>
-          <property name="scaledContents">
-           <bool>true</bool>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_8">
-          <property name="geometry">
-           <rect>
-            <x>60</x>
-            <y>310</y>
-            <width>61</width>
-            <height>61</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap resource="bg_img.qrc">:/img/medal1.png</pixmap>
-          </property>
-          <property name="scaledContents">
-           <bool>true</bool>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
          <widget class="QWidget" name="layoutWidget">
           <property name="geometry">
            <rect>
-            <x>130</x>
-            <y>311</y>
-            <width>471</width>
-            <height>171</height>
-           </rect>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_3" columnstretch="50,20">
-           <item row="0" column="0">
-            <widget class="QLabel" name="tho_top1">
-             <property name="font">
-              <font>
-               <family>Arial</family>
-               <pointsize>16</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgb(85, 85, 0);</string>
-             </property>
-             <property name="text">
-              <string>tho1</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="lan_tho1">
-             <property name="font">
-              <font>
-               <family>Arial</family>
-               <pointsize>16</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgb(85, 85, 0);</string>
-             </property>
-             <property name="text">
-              <string>l_tho1</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="tho_top2">
-             <property name="font">
-              <font>
-               <family>Arial</family>
-               <pointsize>16</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgb(85, 170, 127);</string>
-             </property>
-             <property name="text">
-              <string>tho2</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="lan_tho2">
-             <property name="font">
-              <font>
-               <family>Arial</family>
-               <pointsize>16</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgb(85, 170, 127);</string>
-             </property>
-             <property name="text">
-              <string>l_tho2</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="tho_top3">
-             <property name="font">
-              <font>
-               <family>Arial</family>
-               <pointsize>16</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgb(255, 84, 92);</string>
-             </property>
-             <property name="text">
-              <string>tho3</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QLabel" name="lan_tho3">
-             <property name="font">
-              <font>
-               <family>Arial</family>
-               <pointsize>16</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgb(255, 84, 92);</string>
-             </property>
-             <property name="text">
-              <string>l_tho3</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="layoutWidget">
-          <property name="geometry">
-           <rect>
-            <x>130</x>
-            <y>60</y>
-            <width>471</width>
-            <height>171</height>
+            <x>50</x>
+            <y>70</y>
+            <width>261</width>
+            <height>141</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_2" columnstretch="50,20">
@@ -1059,7 +834,7 @@ border-radius: 20px;</string>
              <property name="font">
               <font>
                <family>Arial</family>
-               <pointsize>16</pointsize>
+               <pointsize>15</pointsize>
                <weight>75</weight>
                <bold>true</bold>
               </font>
@@ -1080,7 +855,7 @@ border-radius: 20px;</string>
              <property name="font">
               <font>
                <family>Arial</family>
-               <pointsize>16</pointsize>
+               <pointsize>15</pointsize>
                <weight>75</weight>
                <bold>true</bold>
               </font>
@@ -1101,7 +876,7 @@ border-radius: 20px;</string>
              <property name="font">
               <font>
                <family>Arial</family>
-               <pointsize>16</pointsize>
+               <pointsize>15</pointsize>
                <weight>75</weight>
                <bold>true</bold>
               </font>
@@ -1122,7 +897,7 @@ border-radius: 20px;</string>
              <property name="font">
               <font>
                <family>Arial</family>
-               <pointsize>16</pointsize>
+               <pointsize>15</pointsize>
                <weight>75</weight>
                <bold>true</bold>
               </font>
@@ -1143,7 +918,7 @@ border-radius: 20px;</string>
              <property name="font">
               <font>
                <family>Arial</family>
-               <pointsize>16</pointsize>
+               <pointsize>15</pointsize>
                <weight>75</weight>
                <bold>true</bold>
               </font>
@@ -1164,7 +939,7 @@ border-radius: 20px;</string>
              <property name="font">
               <font>
                <family>Arial</family>
-               <pointsize>16</pointsize>
+               <pointsize>15</pointsize>
                <weight>75</weight>
                <bold>true</bold>
               </font>
@@ -1183,6 +958,322 @@ border-radius: 20px;</string>
           </layout>
          </widget>
         </widget>
+        <widget class="QLabel" name="label_24">
+         <property name="geometry">
+          <rect>
+           <x>900</x>
+           <y>80</y>
+           <width>71</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Noto Sans</family>
+           <pointsize>11</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(136, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Năm:</string>
+         </property>
+        </widget>
+        <widget class="QSpinBox" name="nam_chart">
+         <property name="geometry">
+          <rect>
+           <x>970</x>
+           <y>81</y>
+           <width>91</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Noto Sans</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="maximum">
+          <number>9999</number>
+         </property>
+         <property name="value">
+          <number>2024</number>
+         </property>
+        </widget>
+        <widget class="QGroupBox" name="groupBox_17">
+         <property name="geometry">
+          <rect>
+           <x>720</x>
+           <y>120</y>
+           <width>331</width>
+           <height>231</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Noto Sans</family>
+           <pointsize>20</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QGroupBox{
+	
+	color: rgb(255, 255, 255);
+    color: #1B5E20; /* Xanh lá đậm */
+    border: 2px solid brown;
+}</string>
+         </property>
+         <property name="title">
+          <string/>
+         </property>
+         <widget class="QLabel" name="label_7">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>120</y>
+            <width>41</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="bg_img.qrc">:/img/medal2.png</pixmap>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+         <widget class="QWidget" name="layoutWidget_2">
+          <property name="geometry">
+           <rect>
+            <x>50</x>
+            <y>70</y>
+            <width>261</width>
+            <height>141</height>
+           </rect>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_3" columnstretch="50,20">
+           <item row="0" column="0">
+            <widget class="QLabel" name="tho_top1">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+               <pointsize>15</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(85, 85, 0);</string>
+             </property>
+             <property name="text">
+              <string>tho1</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="lan_tho1">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+               <pointsize>15</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(85, 85, 0);</string>
+             </property>
+             <property name="text">
+              <string>l_tho1</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="tho_top2">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+               <pointsize>15</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(85, 170, 127);</string>
+             </property>
+             <property name="text">
+              <string>tho2</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="lan_tho2">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+               <pointsize>15</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(85, 170, 127);</string>
+             </property>
+             <property name="text">
+              <string>l_tho2</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="tho_top3">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+               <pointsize>15</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 84, 92);</string>
+             </property>
+             <property name="text">
+              <string>tho3</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="lan_tho3">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+               <pointsize>15</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 84, 92);</string>
+             </property>
+             <property name="text">
+              <string>l_tho3</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QLabel" name="label_6">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>70</y>
+            <width>41</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="bg_img.qrc">:/img/medal1.png</pixmap>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>10</y>
+            <width>331</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Noto Sans</family>
+            <pointsize>15</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(136,0,0);</string>
+          </property>
+          <property name="text">
+           <string>TOP 3 Thợ hớt nhiều nhất</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_8">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>170</y>
+            <width>41</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="bg_img.qrc">:/img/medal3.png</pixmap>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="chart_widget" native="true">
+         <property name="geometry">
+          <rect>
+           <x>330</x>
+           <y>360</y>
+           <width>721</width>
+           <height>271</height>
+          </rect>
+         </property>
+        </widget>
         <zorder>widget_16</zorder>
         <zorder>widget_15</zorder>
         <zorder>groupBox_7</zorder>
@@ -1192,6 +1283,10 @@ border-radius: 20px;</string>
         <zorder>label_21</zorder>
         <zorder>label_22</zorder>
         <zorder>groupBox_11</zorder>
+        <zorder>label_24</zorder>
+        <zorder>nam_chart</zorder>
+        <zorder>groupBox_17</zorder>
+        <zorder>chart_widget</zorder>
        </widget>
        <widget class="QWidget" name="thanh_toan_page">
         <property name="font">
@@ -3648,7 +3743,7 @@ QPushButton::hover{
        </font>
       </property>
       <property name="editTriggers">
-       <set>QAbstractItemView::DoubleClicked|QAbstractItemView::SelectedClicked</set>
+       <set>QAbstractItemView::SelectedClicked</set>
       </property>
       <property name="sortingEnabled">
        <bool>true</bool>
@@ -3772,7 +3867,7 @@ QGroupBox{
       <property name="title">
        <string/>
       </property>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -3821,13 +3916,19 @@ QGroupBox{
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 255, 255);</string>
+           <string notr="true">QLineEdit{
+	background-color: rgb(209, 209, 209);
+}
+QLineEdit::hover{border:none}</string>
           </property>
           <property name="maxLength">
            <number>30</number>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
           </property>
           <property name="placeholderText">
            <string/>
@@ -3971,12 +4072,13 @@ QGroupBox{
            <font>
             <family>Noto Sans</family>
             <pointsize>11</pointsize>
-            <italic>true</italic>
+            <italic>false</italic>
            </font>
           </property>
           <property name="styleSheet">
            <string notr="true">QComboBox{
 	background-color: none;
+	padding: 0 0 0 120px;
 }
 </string>
           </property>
@@ -4005,7 +4107,7 @@ QGroupBox{
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>570</x>

@@ -43,7 +43,9 @@ class SignupForm(QtWidgets.QDialog):
                 params = (user_id,user_name,pass_word,user_role)
                 self._mysql_connector.execute_query(query=query,params=params)
                 QtWidgets.QMessageBox.information(self.main_form,"Thông báo","Tạo tài khoản thành công!")
+                self.main_form.show_data_user()
                 self.close()
+                
         except mysql.connector.Error as err:
             print(err)
             QtWidgets.QMessageBox.information(self.main_form,"Thông báo","Tạo tài khoản không thành công, vui lòng thử lại!")

@@ -51,23 +51,26 @@ class BookingWidget:
 
     #Show data lịch hẹn
     def show_data_lichhen(self):
-        query = """SELECT DatLich.ma_dl,DatLich.ten_kh,DatLich.sdt_kh,Tho.ten_tho,DichVu.ten_dv,DatLich.thoi_gian_dat FROM DatLich 
-                    INNER JOIN Tho ON DatLich.ma_tho=Tho.ma_tho
-                    INNER JOIN DichVu ON DatLich.ma_dv=DichVu.ma_dv
-                    ORDER BY thoi_gian_dat DESC"""
+        try:
+            query = """SELECT DatLich.ma_dl,DatLich.ten_kh,DatLich.sdt_kh,Tho.ten_tho,DichVu.ten_dv,DatLich.thoi_gian_dat FROM DatLich 
+                        INNER JOIN Tho ON DatLich.ma_tho=Tho.ma_tho
+                        INNER JOIN DichVu ON DatLich.ma_dv=DichVu.ma_dv
+                        ORDER BY thoi_gian_dat DESC"""
 
-        result = self._mysql_connector.execute_query(query,select=True)
-        
-        if result:
-            self.main_ui.ds_lich_hen_tb.setRowCount(len(result))
-            self.main_ui.ds_lich_hen_tb.setColumnCount(6)
-            for row_index,row in enumerate(result):
-                for col_index,value in enumerate(row):
-                    item = QtWidgets.QTableWidgetItem(str(value))
-                    item.setTextAlignment(QtCore.Qt.AlignCenter)
-                    self.main_ui.ds_lich_hen_tb.setItem(row_index,col_index,item)
-        else:
-            print("Không có data đặt lịch")
+            result = self._mysql_connector.execute_query(query,select=True)
+            
+            if result:
+                self.main_ui.ds_lich_hen_tb.setRowCount(len(result))
+                self.main_ui.ds_lich_hen_tb.setColumnCount(6)
+                for row_index,row in enumerate(result):
+                    for col_index,value in enumerate(row):
+                        item = QtWidgets.QTableWidgetItem(str(value))
+                        item.setTextAlignment(QtCore.Qt.AlignCenter)
+                        self.main_ui.ds_lich_hen_tb.setItem(row_index,col_index,item)
+            else:
+                print("Không có data đặt lịch")
+        except mysql.connector.Error as err:
+            print(err)
 
     #Hàm tìm tên khách hàng khi nhập sdt
     def get_ten_kh(self):

@@ -4,6 +4,9 @@ from PyQt5 import QtWidgets,QtCore
 import mysql.connector
 import datetime
 from PyQt5.QtCore import QTimer, QDate
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 class StatisticsWidget:
     def __init__(self, mysql_connector, main_ui, main_form):
@@ -16,7 +19,7 @@ class StatisticsWidget:
         self.so_hd = None
         self.time = None
         
-        
+        self.chart_dt()
         self.top_kh()
         self.top_tho()
         self.main_ui.start_date_edit.setDate(self.cap_nhat_dt_slhd_today())
@@ -24,6 +27,45 @@ class StatisticsWidget:
         self.cap_nhat_dt_slhd()
         self.main_ui.start_date_edit.dateChanged.connect(self.cap_nhat_dt_slhd)
         self.main_ui.end_date_edit.dateChanged.connect(self.cap_nhat_dt_slhd)
+        
+    def chart_dt(self):
+        nam = self.main_ui.nam_chart.value()
+        query = """SELECT MONTH(thoi_gian_tt), SUM(tong_tien) FROM HoaDon 
+                WHERE YEAR(thoi_gian_tt) = %s 
+                GROUP BY MONTH(thoi_gian_tt)
+                ORDER BY SUM(tong_tien) DESC"""
+        result = self._mysql_connector.execute_query(query,params=(nam,),select=True)
+        
+        if result:
+            thang = np.array([row[0] for row in result])
+            doanh_thu_thang = np.array([row[1] for row in result])/1_000_000
+        
+            fig, ax = plt.subplots()
+            bars = plt.bar(thang,doanh_thu_thang, color='#880000',width=0.4)
+            plt.xlabel("Tháng")
+            plt.ylabel("Doanh thu (triệu đồng)")
+            plt.title("Biểu đồ doanh thu theo tháng")
+            ax.set_xticks(np.arange(1, 13))  # Từ tháng 1 đến 12
+            for bar in bars:
+                height = bar.get_height()
+                ax.text(
+                    bar.get_x() + bar.get_width() / 2.0, 
+                    height, 
+                    f'{height:.2f}', 
+                    ha='center', 
+                    va='bottom'
+                )
+            # Tạo FigureCanvas từ biểu đồ
+            canvas = FigureCanvas(fig)
+            
+            # Đặt FigureCanvas vào chart_widget
+            layout = QtWidgets.QVBoxLayout(self.main_ui.chart_widget)
+            layout.addWidget(canvas)
+            
+            # Cập nhật hiển thị
+            canvas.draw()
+        else:
+            print("ko")
         
     def cap_nhat_dt_slhd_today(self):
         # Lấy ngày hôm nay
