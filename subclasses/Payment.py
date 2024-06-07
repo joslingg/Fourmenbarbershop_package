@@ -16,7 +16,8 @@ class PaymentWidget:
         self.so_hd = None
         self.time = None
         
-        
+        self.start_date = self.main_ui.start_date_edit.date()
+        self.end_date = self.main_ui.end_date_edit.date()
         
         self.main_ui.ten_tho_cbx.addItems(self.get_ten_tho())
         self.main_ui.tiep_btn.clicked.connect(self.tao_moi_hd)
@@ -29,8 +30,7 @@ class PaymentWidget:
         self.main_ui.bo_qua_btn.clicked.connect(self.bo_qua_hd)
         self.main_ui.ds_dich_vu_tb.itemSelectionChanged.connect(self.get_info_dv)
         self.main_ui.xoa_btn.clicked.connect(self.xoa_dich_vu)
-        
-        
+             
     
     #Lấy tên thợ hiển thị lên combobox  
     def get_ten_tho(self):
@@ -58,6 +58,7 @@ class PaymentWidget:
         self.time = formated_current_time
         return formated_current_time
     
+    #Tạo mới hoá đơn
     def tao_moi_hd(self):
         print("dang tao moi hd")
         self.main_ui.sdt_kh_tbx.clear()

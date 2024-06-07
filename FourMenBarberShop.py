@@ -7,9 +7,10 @@ from Fourmenbarbershop_package.subclasses.Signup import SignupForm
 from Fourmenbarbershop_package.subclasses import Barber
 from Fourmenbarbershop_package.subclasses import Booking
 from Fourmenbarbershop_package.subclasses import Inventory
-from Fourmenbarbershop_package.subclasses import Payment
+from Fourmenbarbershop_package.subclasses import Booking
 from Fourmenbarbershop_package.subclasses import Bill
 from Fourmenbarbershop_package.subclasses import Statistics
+from Fourmenbarbershop_package.subclasses import Payment
 from Fourmenbarbershop_package.gui.FourMenBarberShop_ui import Ui_MainWindow
 from Fourmenbarbershop_package.MySQL_connector import MySQL_Connector
 import mysql.connector
@@ -207,8 +208,8 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.warning(None, "Lỗi đăng nhập","Tài khoản không đúng. Vui lòng thử lại.")
     
     def check_user_role(self, user_role):
-        if user_role == 'Admin' or user_role == 'Quản lý':
-            # Admin và Quản lý có thể truy cập tất cả các chức năng
+        if user_role == 'Admin':
+            # Admin có thể truy cập tất cả các chức năng
             self.main_ui.thongke_btn.setVisible(True)
             self.main_ui.thanhtoan_btn.setVisible(True)
             self.main_ui.lichhen_btn.setVisible(True)
@@ -216,6 +217,15 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
             self.main_ui.tho_btn.setVisible(True)
             self.main_ui.vattu_btn.setVisible(True)
             self.main_ui.phan_quyen_act.setVisible(True)
+        elif user_role == 'Quản lý':
+            # Quản lý có thể truy cập tất cả các chức năng, trừ quản lý người dùng
+            self.main_ui.thongke_btn.setVisible(True)
+            self.main_ui.thanhtoan_btn.setVisible(True)
+            self.main_ui.lichhen_btn.setVisible(True)
+            self.main_ui.khachhang_btn.setVisible(True)
+            self.main_ui.tho_btn.setVisible(True)
+            self.main_ui.vattu_btn.setVisible(True)
+            self.main_ui.phan_quyen_act.setVisible(False)
         elif user_role == 'Tiếp tân':
             # Tiếp tân chỉ có thể truy cập các chức năng đặt lịch hẹn, thanh toán và thống kê
             self.main_ui.thongke_btn.setVisible(True)
@@ -224,7 +234,8 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
             self.main_ui.khachhang_btn.setVisible(False)
             self.main_ui.tho_btn.setVisible(False)
             self.main_ui.vattu_btn.setVisible(False)
-            self.main_ui.phan_quyen_act.setVisible(False)           
+            self.main_ui.phan_quyen_act.setVisible(False)
+            self.bill_widget.bill_ui.xoa_hd_btn.setVisible(False)           
             
     def handle_signup(self):
         pass
@@ -258,8 +269,7 @@ class FourMenBarberShop(QtWidgets.QMainWindow):
         self.login_ui.password_edit.clear()
         self.login_ui.user_name_edit.clear()
     
-    
-    
+     
     #Hiện gợi ý tìm kiếm
     def get_search_history(self,query):
         result = self.mysql_connector.execute_query(query=query, select=True)

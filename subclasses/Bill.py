@@ -16,11 +16,15 @@ class BillWidget():
         self.main_form = main_form
         self.tong_tien = 0
         
+        self.start_date = self.main_ui.start_date_edit.date()
+        self.end_date = self.main_ui.end_date_edit.date()
+        
         #Khai báo bill form
         self.bill_form = QtWidgets.QWidget()
         self.bill_ui = bill_ui.Ui_bill_form()
         self.bill_ui.setupUi(self.bill_form)
-        
+    
+    
     def open_bill_form(self):
         self.bill_form.show()
         self.show_data_hd()
