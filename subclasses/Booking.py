@@ -83,12 +83,14 @@ class BookingWidget:
         else:
             ten_kh = ''
             self.booking_ui.ten_kh_lich_edit.setText(ten_kh)
-         
+    
+    #Lấy ngày đang chọn
     def get_ngay(self):
         date = self.main_ui.calendarWidget.selectedDate()
         date_str = QtCore.QDate.toString(date,"yyyy-MM-dd")
         return date_str
-     
+    
+    #Lọc lịch theo ngày đã chọn
     def loc_lich(self):
         query = """SELECT DatLich.ma_dl,DatLich.ten_kh,DatLich.sdt_kh,Tho.ten_tho,DichVu.ten_dv,DatLich.thoi_gian_dat FROM DatLich 
                     INNER JOIN Tho ON DatLich.ma_tho=Tho.ma_tho
